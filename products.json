@@ -1,0 +1,1661 @@
+{
+  "brands": [
+    {
+      "id": "nishane",
+      "nameAr": "نيشان",
+      "nameEn": "Nishane",
+      "logo": "images/brands/nishane.png",
+      "perfumes": [
+  {
+    "id": "ani",
+    "nameAr": "اني",
+    "nameEn": "ANI",
+    "image": "images/products/ani.png",
+    "prices": {
+      "3ml": 10000,
+      "5ml": 17000,
+      "10ml": 30000
+    }
+  },
+  {
+    "id": "ani-x",
+    "nameAr": "اني اكس",
+    "nameEn": "ANI X",
+    "image": "images/products/ani-x.png",
+    "prices": {
+      "3ml": 12000,
+      "5ml": 19000,
+      "10ml": 35000
+    }
+  },
+  {
+    "id": "dzairo",
+    "nameAr": "دزيرو",
+    "nameEn": "DZAIRO",
+    "image": "images/products/dzairo.png",
+    "prices": {
+      "3ml": 12000,
+      "5ml": 19000,
+      "10ml": 35000
+    }
+  },
+  {
+    "id": "hacivat",
+    "nameAr": "هاشيفات",
+    "nameEn": "Hacivat",
+    "image": "images/products/hacivat.png",
+    "prices": {
+      "3ml": 10000,
+      "5ml": 17000,
+      "10ml": 30000
+    }
+  },
+  {
+    "id": "wulong-cha-x",
+    "nameAr": "ولونج جا اكس",
+    "nameEn": "Wulong Cha X",
+    "image": "images/products/wulong-cha-x.png",
+    "prices": {
+      "3ml": 12000,
+      "5ml": 19000,
+      "10ml": 35000
+    }
+  }
+]   
+    },
+    {
+      "id": "amouage",
+      "nameAr": "امواج",
+      "nameEn": "Amouage",
+      "logo": "images/brands/amouage.png",
+      "perfumes": [
+        {
+          "id": "purpose-50",
+          "nameAr": "بيربوس ٥٠",
+          "nameEn": "Purpose 50",
+          "image": "images/products/purpose-50.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        },
+        {
+          "id": "jubilation-40",
+          "nameAr": "جوبليشن ٤٠",
+          "nameEn": "Jubilation 40 Man",
+          "image": "images/products/jubilation-40.png",
+          "prices": {
+            "3ml": 18000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "reflection-45",
+          "nameAr": "ريفلكشن 45",
+          "nameEn": "Reflection 45",
+          "image": "images/products/reflection-45.png",
+          "prices": {
+            "3ml": 18000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "beach-hut",
+          "nameAr": "بيج هات",
+          "nameEn": "Beach Hut",
+          "image": "images/products/beach-hut.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        },
+        {
+          "id": "guidance-46",
+          "nameAr": "كايدنس ٤٦",
+          "nameEn": "Guidance 46",
+          "image": "images/products/guidance-46.png",
+          "prices": {
+            "3ml": 20000,
+            "5ml": 32000,
+            "10ml": 60000
+          }
+        },
+        {
+          "id": "purpose",
+          "nameAr": "بيربوس",
+          "nameEn": "Purpose",
+          "image": "images/products/purpose.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 25000,
+            "10ml": 45000
+          }
+        }
+      ]
+    },
+    {
+      "id": "clive-christian",
+      "nameAr": "كلايف كريستيان",
+      "nameEn": "Clive Christian",
+      "logo": "images/brands/clive-christian.png",
+      "perfumes": [
+        {
+          "id": "matsukita",
+          "nameAr": "ماتسوكيتا",
+          "nameEn": "Matsukita",
+          "image": "images/products/matsukita.png",
+          "prices": {
+            "3ml": 35000,
+            "5ml": 52000,
+            "10ml": 100000
+          }
+        },
+        {
+          "id": "blonde-amber",
+          "nameAr": "بلوند عمبر",
+          "nameEn": "Blonde Amber",
+          "image": "images/products/blonde-amber.png",
+          "prices": {
+            "3ml": 36000,
+            "5ml": 55000,
+            "10ml": 110000
+          }
+        }
+      ]
+    },
+    {
+      "id": "louis-vuitton",
+      "nameAr": "لويس فيتون",
+      "nameEn": "Louis Vuitton",
+      "logo": "images/brands/louis-vuitton.png",
+      "perfumes": [
+        {
+          "id": "afternoon-swim",
+          "nameAr": "افترنون سويم",
+          "nameEn": "Afternoon Swim",
+          "image": "images/products/afternoon-swim.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        },
+        {
+          "id": "imagination",
+          "nameAr": "ايماجنيشن",
+          "nameEn": "Imagination",
+          "image": "images/products/imagination.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        },
+        {
+          "id": "city-of-stars",
+          "nameAr": "سيتي أوف ستارز",
+          "nameEn": "City Of Stars",
+          "image": "images/products/city-of-stars.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        },
+        {
+          "id": "limmensite",
+          "nameAr": "ليمنستي",
+          "nameEn": "L'Immensité",
+          "image": "images/products/limmensite.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        },
+        {
+          "id": "symphony",
+          "nameAr": "سيمفوني",
+          "nameEn": "Symphony",
+          "image": "images/products/symphony.png",
+          "prices": {
+            "3ml": 36000,
+            "5ml": 57000,
+            "10ml": 110000
+          }
+        }
+      ]
+    },
+    {
+      "id": "jean-paul-gaultier",
+      "nameAr": "جان بول غوتييه",
+      "nameEn": "Jean Paul Gaultier",
+      "logo": "images/brands/jean-paul-gaultier.png",
+      "perfumes": [
+        {
+          "id": "elixir",
+          "nameAr": "الكسير",
+          "nameEn": "Elixir",
+          "image": "images/products/elixir.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "le-beau",
+          "nameAr": "لوبو",
+          "nameEn": "Le Beau",
+          "image": "images/products/le-beau.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "le-beau-paradise-garden",
+          "nameAr": "لوبو بردايس غاردن",
+          "nameEn": "Le Beau Paradise Garden",
+          "image": "images/products/le-beau-paradise-garden.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "ultra-male",
+          "nameAr": "الترا ميل",
+          "nameEn": "Ultra Male",
+          "image": "images/products/ultra-male.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "le-male",
+          "nameAr": "لي ميل",
+          "nameEn": "Le Male",
+          "image": "images/products/le-male.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "elixir-absolu",
+          "nameAr": "الكسير ابسولو",
+          "nameEn": "Elixir Absolu",
+          "image": "images/products/elixir-absolu.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "la-belle",
+          "nameAr": "لا بيل",
+          "nameEn": "La Belle",
+          "image": "images/products/la-belle.png",
+          "prices": {
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "la-belle-paradise-garden",
+          "nameAr": "لا بيل بردايس غاردن",
+          "nameEn": "La Belle Paradise Garden",
+          "image": "images/products/la-belle-paradise-garden.png",
+          "prices": {
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        }
+      ]
+    },
+    {
+      "id": "vertus",
+      "nameAr": "فيرتوس",
+      "nameEn": "Vetrous Paris",
+      "logo": "images/brands/vetrous-paris.png",
+      "perfumes": [
+        {
+          "id": "anka",
+          "nameAr": "انكا",
+          "nameEn": "ANKA",
+          "image": "images/products/anka.png",
+          "prices": {
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "sole-patchouli",
+          "nameAr": "سول باتشولي",
+          "nameEn": "Sole Patchouli",
+          "image": "images/products/sole-patchouli.png",
+          "prices": {
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        }
+      ]
+    },
+    {
+      "id": "xerjoff",
+      "nameAr": "زيرجوف",
+      "nameEn": "Xerjoff",
+      "logo": "images/brands/xerjoff.png",
+      "perfumes": [
+        {
+          "id": "toni-iommi",
+          "nameAr": "توني ايومي",
+          "nameEn": "Toni Iommi",
+          "image": "images/products/toni-iommi.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 24000,
+            "10ml": 45000
+          }
+        },
+        {
+          "id": "more-than-wings",
+          "nameAr": "مور ذين وردز",
+          "nameEn": "More Than Wards",
+          "image": "images/products/more-than-wings.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        },
+        {
+          "id": "accento-overdose",
+          "nameAr": "اكسنتو اوفر دوز",
+          "nameEn": "Accento Overdose",
+          "image": "images/products/accento-overdose.png",
+          "prices": {
+            "3ml": 16000,
+            "5ml": 24000,
+            "10ml": 45000
+          }
+        },
+        {
+          "id": "40-knots",
+          "nameAr": "٤٠ عقدة",
+          "nameEn": "40 Knots",
+          "image": "images/products/40-knots.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        },
+        {
+          "id": "italica-casamorati",
+          "nameAr": "ايتاليكا كاساموراتي",
+          "nameEn": "Italica Casamorati",
+          "image": "images/products/italica-casamorati.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "memorize",
+          "nameAr": "انفيرسيري",
+          "nameEn": "Anniversary",
+          "image": "images/products/memorize.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        },
+        {
+          "id": "alexandria",
+          "nameAr": "الكسندريا II",
+          "nameEn": "Alexandria II",
+          "image": "images/products/alexandria.png",
+          "prices": {
+            "3ml": 20000,
+            "5ml": 32000,
+            "10ml": 60000
+          }
+        },
+        {
+          "id": "renaissance",
+          "nameAr": "رينيسانس",
+          "nameEn": "Renaissance",
+          "image": "images/products/renaissance.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "naxos",
+          "nameAr": "ناكسوس",
+          "nameEn": "Naxos",
+          "image": "images/products/naxos.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "erba-pura",
+          "nameAr": "ايربا بورا",
+          "nameEn": "Erba Pura",
+          "image": "images/products/erba-pura.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "torino-21",
+          "nameAr": "تورينو 21",
+          "nameEn": "Torino 21",
+          "image": "images/products/torino-21.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        }
+      ]
+    },
+    {
+      "id": "giorgio-armani",
+      "nameAr": "جورجيو أرماني",
+      "nameEn": "Giorgio Armani",
+      "logo": "images/brands/giorgio-armani.png",
+      "perfumes": [
+        {
+          "id": "stronger-with-you-tobacco",
+          "nameAr": "سترونغر ويذ يو تبغ",
+          "nameEn": "Stronger With You Tobacco",
+          "image": "images/products/stronger-with-you-tobacco.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "stronger-with-you-intensely",
+          "nameAr": "سترونغر ويذ يو انتينسلي",
+          "nameEn": "Stronger With You Intensely",
+          "image": "images/products/stronger-with-you-intensely.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "stronger-with-you-absolutely",
+          "nameAr": "سترونغر ويذ يو ابسلوتلي",
+          "nameEn": "Stronger With You Absolutely",
+          "image": "images/products/stronger-with-you-absolutely.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "my-way-intense",
+          "nameAr": "ماي وي انتينس",
+          "nameEn": "My Way Intense",
+          "image": "images/products/my-way-intense.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        
+        
+        {
+          "id": "si-red-edp",
+          "nameAr": "سي الأحمر اودو بارفان",
+          "nameEn": "Si Red EDP",
+          "image": "images/products/si-red-edp.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "aqua-di-gio-elixir",
+          "nameAr": "اكوا دي جيو ألكسير",
+          "nameEn": "Aqua Di Gio Elixir",
+          "image": "images/products/aqua-di-gio-elixir.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        }
+      ]
+    },
+
+    {
+      "id": "parfums-de-marly",
+      "nameAr": "دي مارلي ",
+      "nameEn": "Parfums de Marly",
+      "logo": "images/brands/parfums-de-marly.png",
+      "perfumes": [
+        {
+          "id": "haltane",
+          "nameAr": "هالاتان",
+          "nameEn": "Haltane",
+          "image": "images/products/haltane.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "the-rebel",
+          "nameAr": "الثائر",
+          "nameEn": "ALTHAIR",
+          "image": "images/products/the-rebel.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "layton",
+          "nameAr": "لايتون",
+          "nameEn": "Layton",
+          "image": "images/products/layton.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "delina-exclusive",
+          "nameAr": "ديلينا اكسكلوزيف",
+          "nameEn": "Delina Exclusive",
+          "image": "images/products/delina-exclusive.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "valaya",
+          "nameAr": "فالايا",
+          "nameEn": "Valaya",
+          "image": "images/products/valaya.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "percival",
+          "nameAr": "بيرسيوس",
+          "nameEn": "Perseus",
+          "image": "images/products/percival.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "palatine",
+          "nameAr": "بالاتين",
+          "nameEn": "Palatine",
+          "image": "images/products/pegasus.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "layton-exclusif",
+          "nameAr": "لايتون إكسكلوسيف",
+          "nameEn": "Layton Exclusif",
+          "image": "images/products/layton-exclusif.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        }
+      ]
+    },
+    {
+      "id": "maison-crivelli",
+      "nameAr": "ميزون كريفيلي",
+      "nameEn": "Maison Crivelli",
+      "logo": "images/brands/maison-crivelli.png",
+      "perfumes": [
+        {
+          "id": "hibiscus-mahajadja",
+          "nameAr": "هبيسكاس ماهاجاد",
+          "nameEn": "Hibiscus Mahajád",
+          "image": "images/products/hibiscus-mahajadja.png",
+          "prices": {
+            "3ml": 36000,
+            "5ml": 55000,
+            "10ml": 110000
+          }
+        },
+        {
+          "id": "oud-maracuja",
+          "nameAr": "عود ماركوجا",
+          "nameEn": "Oud Maracujá",
+          "image": "images/products/oud-maracuja.png",
+          "prices": {
+            "3ml": 36000,
+            "5ml": 55000,
+            "10ml": 110000
+          }
+        }
+      ]
+    },
+    {
+      "id": "gucci",
+      "nameAr": "كوجي",
+      "nameEn": "Gucci",
+      "logo": "images/brands/gucci.png",
+      "perfumes": [
+        {
+          "id": "guilty-elixir",
+          "nameAr": "كوجي غلتي ألكسير",
+          "nameEn": "Gucci Guilty Elixir",
+          "image": "images/products/guilty-elixir.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 24000,
+            "10ml": 45000
+          }
+        },
+        {
+          "id": "oud-intense",
+          "nameAr": "كوجي عود انتينس",
+          "nameEn": "Gucci Oud Intense",
+          "image": "images/products/oud-intense.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        }
+      ]
+    },
+    {
+      "id": "dior",
+      "nameAr": "ديور",
+      "nameEn": "Dior",
+      "logo": "images/brands/dior.png",
+      "perfumes": [
+        {
+          "id": "homme-parfum",
+          "nameAr": "ديور هوم بارفوم",
+          "nameEn": "Dior Homme Parfum",
+          "image": "images/products/homme-parfum.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "fahrenheit-parfum",
+          "nameAr": "فهرنهايت بارفوم",
+          "nameEn": "Fahrenheit Parfum",
+          "image": "images/products/fahrenheit-parfum.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "homme-intense",
+          "nameAr": "ديور هوم انتينس",
+          "nameEn": "Dior Homme Intense",
+          "image": "images/products/homme-intense.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "miss-dior",
+          "nameAr": "مس ديور",
+          "nameEn": "Miss Dior",
+          "image": "images/products/miss-dior.png",
+          "prices": {
+            "3ml": 16000,
+            "5ml": 24000,
+            "10ml": 45000
+          }
+        },
+        {
+          "id": "miss-dior-eau",
+          "nameAr": "مس ديور او يو اي",
+          "nameEn": "Miss Dior Eau",
+          "image": "images/products/miss-dior-eau.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "miss-dior-blooming",
+          "nameAr": "مس ديور بلومينغ",
+          "nameEn": "Miss Dior Blooming",
+          "image": "images/products/miss-dior-blooming.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "jadore",
+          "nameAr": "جادور ايو دي",
+          "nameEn": "J'adore Eau de Parfum",
+          "image": "images/products/jadore.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "sauvage-forte",
+          "nameAr": "سوفاج ايو فورت",
+          "nameEn": "Sauvage Eau Forte",
+          "image": "images/products/sauvage-forte.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "sauvage-elixir",
+          "nameAr": "سوفاج الكسير",
+          "nameEn": "Sauvage Elixir",
+          "image": "images/products/sauvage-elixir.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        },
+        {
+          "id": "sauvage-parfum",
+          "nameAr": "سوفاج بارفوم",
+          "nameEn": "Sauvage Parfum",
+          "image": "images/products/sauvage-parfum.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 15000,
+            "10ml": 28000
+          }
+        }
+      ]
+    },
+    {
+      "id": "valentino",
+      "nameAr": "فالنتينو",
+      "nameEn": "Valentino",
+      "logo": "images/brands/valentino.png",
+      "perfumes": [
+        {
+          "id": "born-in-roma",
+          "nameAr": "فالنتينو بورن إن روما",
+          "nameEn": "Valentino Born in Roma",
+          "image": "images/products/born-in-roma.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        }
+      ]
+    },
+    {
+      "id": "orto-parisi",
+      "nameAr": "اورتو باريسي",
+      "nameEn": "Orto Parisi",
+      "logo": "images/brands/orto-parisi.png",
+      "perfumes": [
+        {
+          "id": "megamare",
+          "nameAr": "ميغامير",
+          "nameEn": "Megamare",
+          "image": "images/products/megamare.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "terroni",
+          "nameAr": "تيروني",
+          "nameEn": "Terroni",
+          "image": "images/products/terroni.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 25000,
+            "10ml": 46000
+          }
+        },
+        {
+          "id": "bergamask",
+          "nameAr": "بيرغاماسك",
+          "nameEn": "Bergamask",
+          "image": "images/products/bergamask.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        }
+      ]
+    },
+    {
+      "id": "dolce-gabbana",
+      "nameAr": "دولتش اند غابانا",
+      "nameEn": "Dolce & Gabbana",
+      "logo": "images/brands/dolce-gabbana.png",
+      "perfumes": [
+        {
+          "id": "the-one",
+          "nameAr": "ذا وان",
+          "nameEn": "The One",
+          "image": "images/products/the-one.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "devotion-intense",
+          "nameAr": "ديفوشن انتينس",
+          "nameEn": "Devotion Intense",
+          "image": "images/products/devotion-intense.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "k-parfum",
+          "nameAr": "كينغ بارفيوم",
+          "nameEn": "K by Dolce & Gabbana Parfum",
+          "image": "images/products/k-parfum.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "k-eau",
+          "nameAr": "كينغ ايو",
+          "nameEn": "K by Dolce & Gabbana Eau de Toilette",
+          "image": "images/products/k-eau.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        }
+      ]
+    },
+    {
+      "id": "lancome",
+      "nameAr": "لانكوم",
+      "nameEn": "Lancôme",
+      "logo": "images/brands/lancome.png",
+      "perfumes": [
+        {
+          "id": "midnight-roses",
+          "nameAr": "ميدنايت روزس",
+          "nameEn": "Midnight Roses",
+          "image": "images/products/midnight-roses.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        }
+      ]
+    },
+    {
+      "id": "burberry",
+      "nameAr": "بربري لندن",
+      "nameEn": "Burberry London",
+      "logo": "images/brands/burberry.png",
+      "perfumes": [
+        {
+          "id": "her-limited",
+          "nameAr": "بربري هير ليمتد اديشن",
+          "nameEn": "Burberry Her Limited Edition",
+          "image": "images/products/her-limited.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        }
+      ]
+    },
+    {
+      "id": "tom-ford",
+      "nameAr": "توم فورد",
+      "nameEn": "Tom Ford",
+      "logo": "images/brands/tom-ford.png",
+      "perfumes": [
+        {
+          "id": "ombre-leather-edp",
+          "nameAr": "امبري ليذر ايو دي بارفوم",
+          "nameEn": "Ombre Leather Eau de Parfum",
+          "image": "images/products/ombre-leather-edp.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "ombre-leather-parfum",
+          "nameAr": "امبري ليذر بارفوم",
+          "nameEn": "Ombre Leather Parfum",
+          "image": "images/products/ombre-leather-parfum.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "black-orchid",
+          "nameAr": "بلاك أوركيد",
+          "nameEn": "Black Orchid",
+          "image": "images/products/black-orchid.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        }
+      ]
+    },
+    {
+      "id": "women-perfumes",
+      "nameAr": "العطور النسائية",
+      "nameEn": "Women Perfumes",
+      "logo": "images/brands/women-perfumes.png",
+      "perfumes": [
+        {
+          "id": "blanche-bete",
+          "nameAr": "بلانش بيت",
+          "nameEn": "Blanche Bete",
+          "image": "images/products/blanche-bete.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "libre-platinum",
+          "nameAr": "ليبر بلاتين",
+          "nameEn": "Libre Platinum",
+          "image": "images/products/libre-platinum.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 15000,
+            "10ml": 27000
+          }
+        },
+        {
+          "id": "la-belle-paradise-garden",
+          "nameAr": "لا بيل براديس غاردن",
+          "nameEn": "La Belle Paradise Garden",
+          "image": "images/products/la-belle-paradise-garden.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 24000
+          }
+        },
+        {
+          "id": "la-belle",
+          "nameAr": "لا بيل",
+          "nameEn": "La Belle",
+          "image": "images/products/la-belle.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 3000,
+            "10ml": 22000
+          }
+        },
+        {
+          "id": "eau-de-parfum-giorgio-armani",
+          "nameAr": "او دو بارفان جورجيو ارماني",
+          "nameEn": "Eau de Parfum Giorgio Armani",
+          "image": "images/products/eau-de-parfum-giorgio-armani.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "miss-dior",
+          "nameAr": "ميس ديور",
+          "nameEn": "Miss Dior",
+          "image": "images/products/miss-dior.png",
+          "prices": {
+            "3ml": 16000,
+            "5ml": 24000,
+            "10ml": 45000
+          }
+        },
+        {
+          "id": "miss-dior-eau",
+          "nameAr": "ميس ديور EUA",
+          "nameEn": "Miss Dior Eau",
+          "image": "images/products/miss-dior-eau.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "miss-dior-blooming",
+          "nameAr": "ميس ديور بلومينغ",
+          "nameEn": "Miss Dior Blooming",
+          "image": "images/products/miss-dior-blooming.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "my-way-intense",
+          "nameAr": "ماي واي انتنس",
+          "nameEn": "My Way Intense",
+          "image": "images/products/my-way-intense.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "versace-crystal-noir",
+          "nameAr": "ڤيرساج كريستال نوير",
+          "nameEn": "Versace Crystal Noir",
+          "image": "images/products/versace-crystal-noir.png",
+          "prices": {
+            "3ml": 7000,
+            "5ml": 10000,
+            "10ml": 18000
+          }
+        },
+        {
+          "id": "ariana-grande",
+          "nameAr": "اريانا غراندي",
+          "nameEn": "Ariana Grande",
+          "image": "images/products/ariana-grande.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "so-scandal",
+          "nameAr": "سو سكاندال",
+          "nameEn": "So Scandal",
+          "image": "images/products/so-scandal.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "burberry-her-limited",
+          "nameAr": "بوربري هير ليمتيد اديشن",
+          "nameEn": "Burberry Her Limited Edition",
+          "image": "images/products/burberry-her-limited.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "valentino-born-in-roma",
+          "nameAr": "فالنتينو بورن ان روما",
+          "nameEn": "Valentino Born in Roma",
+          "image": "images/products/valentino-born-in-roma.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "212-sexy",
+          "nameAr": "٢١٢ سيكسي",
+          "nameEn": "212 Sexy",
+          "image": "images/products/212-sexy.png",
+          "prices": {
+            "3ml": 7000,
+            "5ml": 10000,
+            "10ml": 18000
+          }
+        },
+        {
+          "id": "jadore-eau-de-parfum",
+          "nameAr": "جادور أو دو بارفان",
+          "nameEn": "J'adore Eau de Parfum",
+          "image": "images/products/jadore-eau-de-parfum.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "midnight-roses",
+          "nameAr": "ميدنايت روز",
+          "nameEn": "Midnight Roses",
+          "image": "images/products/midnight-roses.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "poudre-narciso",
+          "nameAr": "بوردريه - نارسيسو",
+          "nameEn": "Poudre - Narciso",
+          "image": "images/products/poudre-narciso.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "billi-eilish",
+          "nameAr": "بايلي إيليش",
+          "nameEn": "Billie Eilish",
+          "image": "images/products/billi-eilish.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "signature-roberto-cavalli",
+          "nameAr": "سيجنيتشر - روبرتو كافالي",
+          "nameEn": "Signature - Roberto Cavalli",
+          "image": "images/products/signature-roberto-cavalli.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "delina-exclusive",
+          "nameAr": "ديلينا اكسكلوزيف",
+          "nameEn": "Delina Exclusive",
+          "image": "images/products/delina-exclusive.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "valaya",
+          "nameAr": "فالايا",
+          "nameEn": "Valaya",
+          "image": "images/products/valaya.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "palatine",
+          "nameAr": "دي مارلي بالانتين",
+          "nameEn": "Palatine",
+          "image": "images/products/palatine.png",
+          "prices": {
+            "3ml": 17000,
+            "5ml": 27000,
+            "10ml": 50000
+          }
+        },
+        {
+          "id": "erba-pura",
+          "nameAr": "زيرجوف ايربا بورا",
+          "nameEn": "Erba Pura",
+          "image": "images/products/erba-pura.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        },
+        {
+          "id": "hibiscus-mahajadja",
+          "nameAr": "هبيسكاس ماهاجاد",
+          "nameEn": "Hibiscus Mahajad",
+          "image": "images/products/hibiscus-mahajadja.png",
+          "prices": {
+            "3ml": 36000,
+            "5ml": 55000,
+            "10ml": 110000
+          }
+        },
+        {
+          "id": "sora",
+          "nameAr": "سورا",
+          "nameEn": "Sora",
+          "image": "images/products/sora.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "ellora",
+          "nameAr": "الورا",
+          "nameEn": "ELLORA",
+          "image": "images/products/ellora.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "baccarat-rouge-540",
+          "nameAr": "بكرات روج 540",
+          "nameEn": "Baccarat Rouge 540",
+          "image": "images/products/baccarat-rouge-540.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 39000,
+            "10ml": 75000
+          }
+        },
+        {
+          "id": "symphony",
+          "nameAr": "سيمفوني",
+          "nameEn": "SYMPHONY",
+          "image": "images/products/symphony.png",
+          "prices": {
+            "3ml": 36000,
+            "5ml": 55000,
+            "10ml": 110000
+          }
+        }
+      ]
+    },
+    {
+      "id": "mixed-perfumes",
+      "nameAr": "العطور المنوعة",
+      "nameEn": "Mixed Perfumes",
+      "logo": "images/brands/mixed-perfumes.png",
+      "perfumes": [
+        {
+          "id": "prada-homme-intense",
+          "nameAr": "برادا هوم اينتنس",
+          "nameEn": "Prada Homme Intense",
+          "image": "images/products/prada-homme-intense.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "arena-garden",
+          "nameAr": "ارينا غاردن",
+          "nameEn": "Ariana Garden",
+          "image": "images/products/arena-garden.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 17000,
+            "10ml": 30000
+          }
+        },
+        {
+          "id": "spicebomb-extreme",
+          "nameAr": "سبايسبومب اكستريم",
+          "nameEn": "Spicebomb Extreme",
+          "image": "images/products/spicebomb-extreme.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "azzaro-most-wanted",
+          "nameAr": "ازارو موست وانتد",
+          "nameEn": "Azzaro Most Wanted",
+          "image": "images/products/azzaro-most-wanted.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "thomas-kosmal-no4",
+          "nameAr": "توماس كوسمالا نو٤",
+          "nameEn": "Thomas Kosmala No4",
+          "image": "images/products/thomas-kosmal-no4.png",
+          "prices": {
+            "3ml": 8000,
+            "5ml": 12000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "1-million-parfum",
+          "nameAr": "ون مليون بارفيوم",
+          "nameEn": "1 Million Parfum",
+          "image": "images/products/1-million-parfum.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "chopard-black-incense",
+          "nameAr": "شوبارد بلاك انسنس ملاكي",
+          "nameEn": "Chopard Black Incense Malaki",
+          "image": "images/products/chopard-black-incense.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "club-de-nuit-oud",
+          "nameAr": "كلب دي نوي عود",
+          "nameEn": "Club De Nuit Oud",
+          "image": "images/products/club-de-nuit-oud.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "club-de-nuit-limited",
+          "nameAr": "كلب دي نوي ليمتد اديشن",
+          "nameEn": "Club De Nuit Limited Edition",
+          "image": "images/products/club-de-nuit-limited.png",
+          "prices": {
+            "3ml": 6000,
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "liquid-brown",
+          "nameAr": "ليكويد براون",
+          "nameEn": "Liquid Brown",
+          "image": "images/products/liquid-brown.png",
+          "prices": {
+            "10ml": 10000
+          }
+        }
+      ]
+    },
+    {
+      "id": "by-kilian",
+      "nameAr": "باي كيلان",
+      "nameEn": "By Kilian",
+      "logo": "images/brands/by-kilian.png",
+      "perfumes": [
+        {
+          "id": "angels-share",
+          "nameAr": "انجل شير",
+          "nameEn": "Angel's Share",
+          "image": "images/products/angels-share.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 37000,
+            "10ml": 70000
+          }
+        }
+      ]
+    },
+    {
+      "id": "bvlgari",
+      "nameAr": "بلغري",
+      "nameEn": "BVLGARI",
+      "logo": "images/brands/bvlgari.png",
+      "perfumes": [
+        {
+          "id": "tygar",
+          "nameAr": "بلغري تايغر",
+          "nameEn": "Tygar Bvlgari",
+          "image": "images/products/tygar.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 35000,
+            "10ml": 65000
+          }
+        }
+      ]
+    },
+    {
+      "id": "le-labo",
+      "nameAr": "لي لابو",
+      "nameEn": "LE LABO",
+      "logo": "images/brands/le-labo.png",
+      "perfumes": [
+        {
+          "id": "santal-33",
+          "nameAr": "سانتال ٣٣",
+          "nameEn": "SANTAL 33",
+          "image": "images/products/santal-33.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 25000,
+            "10ml": 45000
+          }
+        }
+      ]
+    },
+    {
+      "id": "gissah",
+      "nameAr": "قصة",
+      "nameEn": "Gissah",
+      "logo": "images/brands/gissah.png",
+      "perfumes": [
+        {
+          "id": "sora",
+          "nameAr": "سورا",
+          "nameEn": "SORA",
+          "image": "images/products/sora.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        },
+        {
+          "id": "ellora",
+          "nameAr": "الورا",
+          "nameEn": "ELLORA",
+          "image": "images/products/ellora.png",
+          "prices": {
+            "5ml": 9000,
+            "10ml": 15000
+          }
+        }
+      ]
+    },
+    {
+      "id": "mfk",
+      "nameAr": "ام اف كي",
+      "nameEn": "MFK",
+      "logo": "images/brands/mfk.png",
+      "perfumes": [
+        {
+          "id": "baccarat-rouge-540",
+          "nameAr": "بكرات روج ٥٤٠",
+          "nameEn": "Baccarat Rouge 540",
+          "image": "images/products/baccarat-rouge-540.png",
+          "prices": {
+            "3ml": 24000,
+            "5ml": 39000,
+            "10ml": 75000
+          }
+        }
+      ]
+    },
+    {
+      "id": "frederic-malle",
+      "nameAr": "فريدريك مال",
+      "nameEn": "FREDERIC MALLE",
+      "logo": "images/brands/frederic-malle.png",
+      "perfumes": [
+        {
+          "id": "promise",
+          "nameAr": "الوعد",
+          "nameEn": "PROMISE",
+          "image": "images/products/promise.png",
+          "prices": {
+            "3ml": 20000,
+            "5ml": 32000,
+            "10ml": 60000
+          }
+        }
+      ]
+    },
+    {
+      "id": "chanel",
+      "nameAr": "شانيل",
+      "nameEn": "CHANEL",
+      "logo": "images/brands/chanel.png",
+      "perfumes": [
+        {
+          "id": "bleu-de-chanel-parfum",
+          "nameAr": "بلو دي شانيل بارفوم",
+          "nameEn": "BLUE DE CHANEL PARFUM",
+          "image": "images/products/bleu-de-chanel-parfum.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        }
+      ]
+    },
+    {
+      "id": "etat-libre-dorange",
+      "nameAr": "ايتات ليبر د اورانج",
+      "nameEn": "ETAT LIBRE D'ORANGE",
+      "logo": "images/brands/etat-libre-dorange.png",
+      "perfumes": [
+        {
+          "id": "experimentum",
+          "nameAr": "اكسبيرمنتوم",
+          "nameEn": "Experimentum",
+          "image": "images/products/experimentum.png",
+          "prices": {
+            "5ml": 13000,
+            "10ml": 25000
+          }
+        }
+      ]
+    },
+    {
+      "id": "ormonde-jayne",
+      "nameAr": "ارموند جين",
+      "nameEn": "ORMONDE JAYNE",
+      "logo": "images/brands/ormonde-jayne.png",
+      "perfumes": [
+        {
+          "id": "montabaco-cuba",
+          "nameAr": "مونتوباكو كوبا",
+          "nameEn": "Montabaco Cuba",
+          "image": "images/products/montabaco-cuba.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 22000,
+            "10ml": 40000
+          }
+        }
+      ]
+    },
+    {
+      "id": "bdk-parfums",
+      "nameAr": "بي دي كيه بارفيوم",
+      "nameEn": "BDK Parfums Paris",
+      "logo": "images/brands/bdk-parfums.png",
+      "perfumes": [
+        {
+          "id": "gris-charnel",
+          "nameAr": "غريس شارنيل",
+          "nameEn": "Gris Charnel",
+          "image": "images/products/gris-charnel.png",
+          "prices": {
+            "3ml": 12000,
+            "5ml": 19000,
+            "10ml": 35000
+          }
+        }
+      ]
+    }
+  ]
+}  
+  
+
+  
+
+  
+

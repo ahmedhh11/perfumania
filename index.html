@@ -1,0 +1,211 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PERFORMANIA – AKRAM | متجر العطور الفاخرة</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            /* تطبيق الخطوط على العناصر الرئيسية فقط */
+            .main-header,
+            .hero-banner,
+            .section-title {
+                font-family: 'Noto Kufi Arabic', sans-serif;
+            }
+            
+            .main-header p,
+            .hero-banner p,
+            .hero-banner h2 {  /* هذا هو السطر الذي ستضيفه */
+                font-family: 'Amiri', serif;
+            }
+        </style>
+    </head>
+<body>
+    <!-- الهيدر -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <h1>PERFUMANIA</h1>
+                <img src="images/premium-logo.png" alt="Premium Perfumes" class="logo-image">
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#brands-section">الدور العطرية</a></li>
+                    <li><a href="#women-perfumes">العطور النسائية</a></li>
+
+                    <li><a href="#" class="cart-btn">سلة التسوق <span class="cart-count">0</span></a></li>
+                    <li><a href="#footer-contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- البانر الرئيسي -->
+
+<section class="hero-banner">
+    <div class="hero-slider">
+        <div class="slider-container">
+            <!-- سيتم إضافة الشرائح ديناميكياً عبر JavaScript -->
+        </div>
+    </div>
+    <div class="hero-content">
+        <h2>عطور عالمية بلمسة فاخرة</h2>
+        <p>اكتشف مجموعة العطور الحصرية من أشهر البراندات العالمية</p>
+    </div>
+</section>
+    <section class="brands-section" id="brands-section">
+        <div class="container">
+            <h2 class="section-title">دور العطور</h2>
+            <div class="brands-slider">
+                <div class="brands-container" id="brands-container">
+                    <!-- سيتم ملؤه ديناميكياً عبر JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<section id="amouage" class="brand-section">
+    <h2>عطور أمواج</h2>
+    <!-- تفاصيل عطور أمواج هنا -->
+</section>
+
+<!-- إضافة باقي الأقسام بنفس الطريقة -->
+
+    <!-- قسم الأسئلة الشائعة الجديد -->
+    <section class="faq-section">
+        <div class="container">
+            <button class="faq-toggle-btn">الأسئلة الشائعة</button>
+            <div class="faq-content" style="display: none;">
+                <div class="faq-item">
+                    <h5>شنو هو تقسيم العطور ؟</h5>
+                    <p>هو تجزئة علبة العطر الكامل الاصلية من الشركة الام الى تقسيمات صغيرة ( ٣مل ، ٥مل ، ١٠مل ) بسعر انسب.</p>
+                </div>
+                <div class="faq-item">
+                    <h5>زين شنو فائدة التقسيم ؟</h5>
+                    <p>أولاً: الحصول على عطور البراندات العالمية بأرخص الأسعار.<br>
+                    ثانياً: سهولة حمل العطور في الجيب او الحقيبة اثناء التنقل (يعني انت متعطر بكل وقت).<br>
+                    ثالثاً: تجربة العطر قبل شراء العبوة الكاملة.<br>
+                    رابعاً: تقدر تشتري أنواع مختلفة لكل مناسبة (موعد، حفلة، شغل…).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- شريط البحث -->
+        <section class="search-bar">
+            <div class="container">
+                <input type="text" placeholder="ابحث عن عطر أو براند..." id="search-input">
+            </div>
+        </section>
+
+        <!-- أقسام العطور لكل براند -->
+        <!-- سيتم ملؤه ديناميكياً عبر JavaScript -->
+        <div id="brands-products-container"></div>
+    </main>
+
+    <!-- نافذة تفاصيل العطر -->
+    <div class="perfume-details-overlay">
+        <div class="perfume-details-modal">
+            <button class="close-details">&times;</button>
+            <div class="perfume-details-content">
+                <div class="perfume-details-header">
+                    <img id="detail-perfume-image" src="" alt="صورة العطر">
+                    <div>
+                        <h2 id="detail-perfume-name-ar"></h2>
+                        <h3 id="detail-perfume-name-en"></h3>
+                        <p id="detail-perfume-brand"></p>
+                    </div>
+                </div>
+                <div class="perfume-details-body">
+                    <div class="detail-row">
+                        <span class="detail-label">مميزات العطر:</span>
+                        <span id="detail-features" class="detail-value"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">بلد الصنع:</span>
+                        <span id="detail-country" class="detail-value"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">الفصل المناسب:</span>
+                        <span id="detail-season" class="detail-value"></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">الفئة المستهدفة:</span>
+                        <span id="detail-gender" class="detail-value"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة السلة -->
+    <div class="cart-overlay">
+        <div class="cart-modal">
+            <button class="close-cart">&times;</button>
+            <h2>سلة التسوق</h2>
+            <div class="cart-items">
+                <!-- العناصر ستضاف هنا -->
+            </div>
+            <div class="cart-total">
+                <h3>المجموع: <span>0</span> دينار</h3>
+            </div>
+            <button class="checkout-btn">إتمام الطلب</button>
+        </div>
+    </div>
+
+    <!-- نافذة الطلب -->
+    <div class="checkout-overlay">
+        <div class="checkout-modal">
+            <button class="close-checkout">&times;</button>
+            <h2>إتمام الطلب</h2>
+            <form class="checkout-form">
+                <input type="text" placeholder="الاسم الكامل" required>
+                <input type="tel" placeholder="رقم الهاتف" required>
+                <select required>
+                    <option value="">اختر المحافظة</option>
+                    <option value="baghdad">بغداد</option>
+                    <option value="basra">البصرة</option>
+                    <option value="erbil">أربيل</option>
+                </select>
+                <input type="text" placeholder="أقرب نقطة دالة" required>
+                <textarea placeholder="العنوان التفصيلي"></textarea>
+                <button type="submit">إرسال الطلب عبر واتساب</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer class="main-footer" id="footer-contact"> <!-- تم إضافة ID هنا -->
+        <div class="container">
+            <div class="footer-logo">
+                <h3>AKRAM – Perfumes International Brands</h3>
+            </div>
+            <div class="footer-links">
+                <h4>روابط التواصل</h4>
+                <ul>
+                    <li><a href="#women-perfumes">العطور النسائية</a></li>
+                    <li><a href="https://www.instagram.com/perfumania93" target="_blank">انستجرام</a></li>
+                    <li><a href="https://www.facebook.com/share/19e2RQU2hv/?mibextid=wwXIfr" target="_blank">فيسبوك</a></li>
+                    <li><a href="https://wa.me/9647870272308" target="_blank">واتساب</a></li>
+                </ul>
+            </div>
+            <div class="faq">
+                <h4>معلومات إضافية</h4>
+                <div class="faq-item">
+                    <h5>طرق الدفع</h5>
+                    <p>نقبل الدفع نقداً عند الاستلام أو التحويل المسبق.</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 PERFORMANIA – AKRAM. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
