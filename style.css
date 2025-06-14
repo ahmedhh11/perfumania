@@ -1618,17 +1618,21 @@ html {
 
   @media (max-width: 768px) {
     .main-header {
-      padding: 5px 0;
+      padding: 0px 0;
     }
   
     .logo-image {
-      max-height: 90px;
+      max-height: 80px;
       margin-top: 0;
     }
   
     .logo h1 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-bottom: 0;
+    }
+  
+    nav ul li {
+      margin: 0 6px;
     }
   }
   
