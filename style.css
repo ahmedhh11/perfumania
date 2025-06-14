@@ -42,7 +42,7 @@ a {
 /* الهيدر */
 .main-header {
     background-color: var(--black);
-    padding: 20px 0;
+    padding: 10px 0;
     border-bottom: 1px solid var(--gold);
     position: fixed;
     width: 100%;
