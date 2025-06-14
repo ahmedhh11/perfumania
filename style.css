@@ -63,7 +63,7 @@ a {
 }
 
 .logo-image {
-    max-height: 100px;
+    max-height: 50px;
     width: auto;
     margin-top: 5px;
 }
@@ -1609,6 +1609,13 @@ html {
 .brand-section {
     transition: all 0.3s ease;
 }
+
+@media (max-width: 768px) {
+    .logo-image {
+      max-height: 100px;
+    }
+  }
+  
 
 
 
