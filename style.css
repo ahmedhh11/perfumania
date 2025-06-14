@@ -63,7 +63,7 @@ a {
 }
 
 .logo-image {
-    max-height: 50px;
+    max-height: 100px;
     width: auto;
     margin-top: 5px;
 }
@@ -179,7 +179,16 @@ a {
     }
 }
 
-
+/* البانر الرئيسي */
+.hero-banner {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-top: 80px;
+    animation: fadeIn 1.5s ease-in-out;
+}
 
 .hero-banner h2 {
     font-size: 3rem;
