@@ -1618,37 +1618,41 @@ html {
 
   @media (max-width: 768px) {
     .main-header {
-        padding: 0px 0;
-      }
-    
-      .logo-image {
-        max-height: 100px; /* تكبير الشعار */
-        margin-top: 0;
-      }
-    
-      .logo h1 {
-        font-size: 1.4rem;
-        margin-bottom: 0;
-      }
-    
-      nav ul {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 0;
-        margin: 0;
-      }
-    
-      nav ul li {
-        list-style: none;
-        margin: 0 6px;
-        padding: 0;
-        font-size: 0.9rem;
-        line-height: 1.6;
-      }
-  }
+      padding: 0 0;
+    }
   
+    .logo-image {
+      max-height: 85px;
+      margin-top: 0;
+    }
+  
+    .logo h1 {
+      font-size: 1.3rem;
+      margin-bottom: 0;
+    }
+  
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+  
+    nav ul li {
+      list-style: none;
+      margin: 0 10px;
+      padding: 0;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+  
+    nav ul li a {
+      font-size: 0.9rem !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }  
 
 
 
