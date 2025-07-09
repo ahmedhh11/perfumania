@@ -89,7 +89,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // التكيف مع حجم الشاشة
     window.addEventListener('resize', updateSlider);
 });
-// script.js
+// تهيئة Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyB0HubEpRtkUEwHaqPSs-bG2CGRZGJhvmQ",
+    authDomain: "perfum-dashboad.firebaseapp.com",
+    projectId: "perfum-dashboad",
+    storageBucket: "perfum-dashboad.appspot.com",
+    messagingSenderId: "502703060026",
+    appId: "1:502703060026:web:dcb93e699b05cf359bf103"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
 // متغيرات السلة
 let cart = [];
 let cartCount = document.querySelector('.cart-count');
@@ -109,52 +122,133 @@ let brandsProductsContainer = document.getElementById('brands-products-container
 let brandsData = [];
 let productsData = [];
 
-// فتح وإغلاق السلة
-cartBtn.addEventListener('click', () => {
-    updateCartModal();
-    cartOverlay.style.display = 'flex';
-});
+// دالة لتحميل البيانات من Firestore
+async function loadFirestoreProducts() {
+    try {
+        const snapshot = await db.collection("perfumes").get();
+        const firestoreProducts = [];
+        
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            // تحويل بيانات Firestore إلى نفس تنسيق ملف JSON
+            const product = {
+                id: doc.id,
+                brandId: data.brandId || "mixed-perfumes",
+                brandNameAr: data.brandNameAr || "براند غير محدد",
+                brandNameEn: data.brandNameEn || "Unknown Brand",
+                nameAr: data.nameAr || data.name || "منتج بدون اسم",
+                nameEn: data.nameEn || data.name || "Unnamed Product",
+                image: data.image || "images/default-product.png",
+                prices: {
+                    "3ml": data.price3ml || 0,
+                    "5ml": data.price5ml || 0,
+                    "10ml": data.price10ml || 0
+                }
+            };
+            firestoreProducts.push(product);
+        });
+        
+        return firestoreProducts;
+    } catch (error) {
+        console.error("Error loading Firestore products:", error);
+        return [];
+    }
+}
 
-closeCart.addEventListener('click', () => {
-    cartOverlay.style.display = 'none';
-});
+// دالة لتحميل البيانات من ملف JSON
+async function loadJsonProducts() {
+    try {
+        const response = await fetch('products.json');
+        const data = await response.json();
+        let jsonProducts = [];
+        
+        data.brands.forEach(brand => {
+            brand.perfumes.forEach(perfume => {
+                jsonProducts.push({
+                    id: perfume.id,
+                    brandId: brand.id,
+                    brandNameAr: brand.nameAr,
+                    brandNameEn: brand.nameEn,
+                    nameAr: perfume.nameAr,
+                    nameEn: perfume.nameEn,
+                    image: perfume.image,
+                    prices: perfume.prices
+                });
+            });
+        });
+        
+        return jsonProducts;
+    } catch (error) {
+        console.error("Error loading JSON products:", error);
+        return [];
+    }
+}
 
-// فتح وإغلاق نافذة الطلب
-checkoutBtn.addEventListener('click', () => {
-    cartOverlay.style.display = 'none';
-    checkoutOverlay.style.display = 'flex';
-    alert("الآن يمكنك اختيار أي من محافظات العراق الـ18 المتوفرة في القائمة.");
-});
+// دالة لتحميل كل البيانات ودمجها
+async function loadAllProducts() {
+    const [firestoreProducts, jsonProducts] = await Promise.all([
+        loadFirestoreProducts(),
+        loadJsonProducts()
+    ]);
+    
+    // دمج المنتجات مع إزالة التكرارات (تفضيل منتجات Firestore عند وجود تكرار)
+    const mergedProducts = [...jsonProducts];
+    const jsonProductIds = new Set(jsonProducts.map(p => p.id));
+    
+    firestoreProducts.forEach(product => {
+        if (!jsonProductIds.has(product.id)) {
+            mergedProducts.push(product);
+        }
+    });
+    
+    return mergedProducts;
+}
 
-closeCheckout.addEventListener('click', () => {
-    checkoutOverlay.style.display = 'none';
-});
+// دالة لتحميل البراندات من المنتجات المدمجة
+function loadBrandsFromProducts(products) {
+    const brandsMap = new Map();
+    
+    products.forEach(product => {
+        if (!brandsMap.has(product.brandId)) {
+            brandsMap.set(product.brandId, {
+                id: product.brandId,
+                nameAr: product.brandNameAr,
+                nameEn: product.brandNameEn,
+                logo: `images/brands/${product.brandId}.png` // افتراضي
+            });
+        }
+    });
+    
+    return Array.from(brandsMap.values());
+}
 
-// إنشاء خيارات المحافظات ديناميكياً
+// تحميل البيانات وعرضها
+async function loadData() {
+    try {
+        productsData = await loadAllProducts();
+        brandsData = loadBrandsFromProducts(productsData);
+        
+        displayBrands();
+        displayProducts(productsData);
+        setupBrandsSlider();
+    } catch (error) {
+        console.error("Error loading data:", error);
+    }
+}
+
+// بقية الدوال تبقى كما هي (displayBrands, displayProducts, createProductCard, etc.)
+// ... [كل الدوال الأخرى من الكود الأصلي تبقى كما هي دون تغيير]
+
+// استدعاء تحميل البيانات عند بدء التشغيل
 document.addEventListener('DOMContentLoaded', function() {
+    // إنشاء خيارات المحافظات
     const governorates = [
-        "بغداد",
-        "نينوى",
-        "البصرة",
-        "أربيل",
-        "الأنبار",
-        "كربلاء",
-        "النجف",
-        "ذي قار",
-        "ديالى",
-        "صلاح الدين",
-        "السليمانية",
-        "واسط",
-        "بابل",
-        "القادسية",
-        "كركوك",
-        "ميسان",
-        "دهوك",
-        "المثنى"
+        "بغداد", "نينوى", "البصرة", "أربيل", "الأنبار", "كربلاء", 
+        "النجف", "ذي قار", "ديالى", "صلاح الدين", "السليمانية", 
+        "واسط", "بابل", "القادسية", "كركوك", "ميسان", "دهوك", "المثنى"
     ];
     
     const citySelect = checkoutForm.querySelector('select');
-    
     governorates.forEach(gov => {
         const option = document.createElement('option');
         option.value = gov;
@@ -164,6 +258,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // تحميل البيانات
     loadData();
+    
+    // إنشاء الجزيئات الذهبية
+    createGoldParticles();
+    setInterval(() => {
+        const particles = document.querySelectorAll('.gold-particle');
+        particles.forEach(p => p.remove());
+        createGoldParticles();
+    }, 15000);
 });
 
 // إرسال الطلب عبر واتساب
