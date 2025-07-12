@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSlider() {
         sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-    
         // تحديث النقاط النشطة
         document.querySelectorAll('.slider-dots button').forEach((dot, index) => {
             dot.classList.toggle('active', index === currentSlide);
@@ -89,19 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // التكيف مع حجم الشاشة
     window.addEventListener('resize', updateSlider);
 });
-// تهيئة Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSyB0HubEpRtkUEwHaqPSs-bG2CGRZGJhvmQ",
-    authDomain: "perfum-dashboad.firebaseapp.com",
-    projectId: "perfum-dashboad",
-    storageBucket: "perfum-dashboad.appspot.com",
-    messagingSenderId: "502703060026",
-    appId: "1:502703060026:web:dcb93e699b05cf359bf103"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
 
 // متغيرات السلة
 let cart = [];
@@ -121,339 +107,6 @@ let brandsProductsContainer = document.getElementById('brands-products-container
 // متغيرات لتخزين البيانات
 let brandsData = [];
 let productsData = [];
-
-// دالة لتحميل البيانات من Firestore
-async function loadFirestoreProducts() {
-    try {
-        const snapshot = await db.collection("perfumes").get();
-        const firestoreProducts = [];
-        
-        snapshot.forEach(doc => {
-            const data = doc.data();
-            // تحويل بيانات Firestore إلى نفس تنسيق ملف JSON
-            const product = {
-                id: doc.id,
-                brandId: data.brandId || "mixed-perfumes",
-                brandNameAr: data.brandNameAr || "براند غير محدد",
-                brandNameEn: data.brandNameEn || "Unknown Brand",
-                nameAr: data.nameAr || data.name || "منتج بدون اسم",
-                nameEn: data.nameEn || data.name || "Unnamed Product",
-                image: data.image || "images/default-product.png",
-                prices: {
-                    "3ml": data.price3ml || 0,
-                    "5ml": data.price5ml || 0,
-                    "10ml": data.price10ml || 0
-                }
-            };
-            firestoreProducts.push(product);
-        });
-        
-        return firestoreProducts;
-    } catch (error) {
-        console.error("Error loading Firestore products:", error);
-        return [];
-    }
-}
-
-// دالة لتحميل البيانات من ملف JSON
-async function loadJsonProducts() {
-    try {
-        const response = await fetch('products.json');
-        const data = await response.json();
-        let jsonProducts = [];
-        
-        data.brands.forEach(brand => {
-            brand.perfumes.forEach(perfume => {
-                jsonProducts.push({
-                    id: perfume.id,
-                    brandId: brand.id,
-                    brandNameAr: brand.nameAr,
-                    brandNameEn: brand.nameEn,
-                    nameAr: perfume.nameAr,
-                    nameEn: perfume.nameEn,
-                    image: perfume.image,
-                    prices: perfume.prices
-                });
-            });
-        });
-        
-        return jsonProducts;
-    } catch (error) {
-        console.error("Error loading JSON products:", error);
-        return [];
-    }
-}
-
-// دالة لتحميل كل البيانات ودمجها
-async function loadAllProducts() {
-    const [firestoreProducts, jsonProducts] = await Promise.all([
-        loadFirestoreProducts(),
-        loadJsonProducts()
-    ]);
-    
-    // دمج المنتجات مع إزالة التكرارات (تفضيل منتجات Firestore عند وجود تكرار)
-    const mergedProducts = [...jsonProducts];
-    const jsonProductIds = new Set(jsonProducts.map(p => p.id));
-    
-    firestoreProducts.forEach(product => {
-        if (!jsonProductIds.has(product.id)) {
-            mergedProducts.push(product);
-        }
-    });
-    
-    return mergedProducts;
-}
-
-// دالة لتحميل البراندات من المنتجات المدمجة
-function loadBrandsFromProducts(products) {
-    const brandsMap = new Map();
-    
-    products.forEach(product => {
-        if (!brandsMap.has(product.brandId)) {
-            brandsMap.set(product.brandId, {
-                id: product.brandId,
-                nameAr: product.brandNameAr,
-                nameEn: product.brandNameEn,
-                logo: `images/brands/${product.brandId}.png` // افتراضي
-            });
-        }
-    });
-    
-    return Array.from(brandsMap.values());
-}
-
-// تحميل البيانات وعرضها
-async function loadData() {
-    try {
-        productsData = await loadAllProducts();
-        brandsData = loadBrandsFromProducts(productsData);
-        
-        displayBrands();
-        displayProducts(productsData);
-        setupBrandsSlider();
-    } catch (error) {
-        console.error("Error loading data:", error);
-    }
-}
-
-// بقية الدوال تبقى كما هي (displayBrands, displayProducts, createProductCard, etc.)
-// ... [كل الدوال الأخرى من الكود الأصلي تبقى كما هي دون تغيير]
-
-// استدعاء تحميل البيانات عند بدء التشغيل
-document.addEventListener('DOMContentLoaded', function() {
-    // إنشاء خيارات المحافظات
-    const governorates = [
-        "بغداد", "نينوى", "البصرة", "أربيل", "الأنبار", "كربلاء", 
-        "النجف", "ذي قار", "ديالى", "صلاح الدين", "السليمانية", 
-        "واسط", "بابل", "القادسية", "كركوك", "ميسان", "دهوك", "المثنى"
-    ];
-    
-    const citySelect = checkoutForm.querySelector('select');
-    governorates.forEach(gov => {
-        const option = document.createElement('option');
-        option.value = gov;
-        option.textContent = gov;
-        citySelect.appendChild(option);
-    });
-    
-    // تحميل البيانات
-    loadData();
-    
-    // إنشاء الجزيئات الذهبية
-    createGoldParticles();
-    setInterval(() => {
-        const particles = document.querySelectorAll('.gold-particle');
-        particles.forEach(p => p.remove());
-        createGoldParticles();
-    }, 15000);
-});
-
-// إرسال الطلب عبر واتساب
-checkoutForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // جمع البيانات مع التحقق من وجودها
-    const name = checkoutForm.elements[0].value;
-    const phone = checkoutForm.elements[1].value;
-    const city = checkoutForm.elements[2].value;
-    const landmark = checkoutForm.elements[3].value;
-    const address = checkoutForm.elements[4].value;
-
-    // تنظيف رقم الهاتف وإزالة أي أحرف غير رقمية
-    const cleanPhone = phone.replace(/\D/g, '');
-    
-    // التحقق من صحة رقم الهاتف
-    if (!cleanPhone || cleanPhone.length < 8) {
-        alert('الرجاء إدخال رقم هاتف صحيح (8 أرقام على الأقل)');
-        return;
-    }
-
-    // إنشاء رسالة واتساب
-    let message = `طلب جديد من PERFORMANIA - AKRAM%0A%0A`;
-    message += `👤 *الاسم:* ${name}%0A`;
-    message += `📱 *رقم الهاتف:* ${phone}%0A`;
-    message += `📍 *المحافظة:* ${city}%0A`;
-    message += `🗺️ *أقرب نقطة دالة:* ${landmark}%0A`;
-    message += `🏠 *العنوان التفصيلي:* ${address}%0A%0A`;
-    message += `🛒 *الطلبات:*%0A`;
-
-    if (cart.length === 0) {
-        message += `- لا توجد عناصر في السلة%0A`;
-    } else {
-        cart.forEach(item => {
-            message += `- ${item.name} (${item.size} مل) × ${item.quantity}: ${item.price * item.quantity} دينار%0A`;
-        });
-    }
-
-    message += `%0A💰 *المجموع:* ${calculateTotal()} دينار`;
-
-    // إنشاء رابط واتساب مع الرقم الصحيح (بدون تكرار رمز الدولة)
-    const whatsappUrl = `https://wa.me/9647870272308?text=${message}`;
-    
-    // فتح الرابط في نافذة جديدة
-    window.open(whatsappUrl, '_blank');
-
-    // إعادة تعيين السلة والنموذج
-    cart = [];
-    updateCartCount();
-    checkoutOverlay.style.display = 'none';
-    checkoutForm.reset();
-    
-    // إظهار تنبيه بالإرسال الناجح
-    alert('تم إرسال طلبك بنجاح! سنتصل بك قريباً لتأكيد التفاصيل.');
-});
-
-// تحديث عرض السلة مع التحسينات الجديدة
-function updateCartModal() {
-    let cartItems = document.querySelector('.cart-items');
-    let cartTotal = document.querySelector('.cart-total span');
-    
-    cartItems.innerHTML = '';
-    
-    if (cart.length === 0) {
-        cartItems.innerHTML = '<p>السلة فارغة</p>';
-        cartTotal.textContent = '0';
-        return;
-    }
-    
-    // زر إلغاء جميع الطلبات
-    const clearAllBtn = document.createElement('button');
-    clearAllBtn.className = 'clear-all-btn';
-    clearAllBtn.innerHTML = '🗑️ إلغاء جميع الطلبات';
-    clearAllBtn.addEventListener('click', () => {
-        cart = [];
-        updateCartCount();
-        updateCartModal();
-    });
-    cartItems.appendChild(clearAllBtn);
-    
-    // عرض العناصر في السلة
-    cart.forEach((item, index) => {
-        let cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <div class="item-image">
-                <img src="${getProductImage(item.id)}" alt="${item.name}" loading="lazy">
-            </div>
-            <div class="item-details">
-                <div class="item-info">
-                    <h4>${item.name}</h4>
-                    <p>${item.size} مل × ${item.quantity}</p>
-                    <p class="item-price">${item.price * item.quantity} دينار</p>
-                </div>
-                <div class="item-actions">
-                    <div class="quantity-controls">
-                        <button class="quantity-btn minus">-</button>
-                        <span class="quantity">${item.quantity}</span>
-                        <button class="quantity-btn plus">+</button>
-                    </div>
-                    <button class="remove-item-btn">❌ إلغاء هذا الطلب</button>
-                </div>
-            </div>
-        `;
-        
-        cartItems.appendChild(cartItem);
-        
-        // أحداث الأزرار
-        const minusBtn = cartItem.querySelector('.minus');
-        const plusBtn = cartItem.querySelector('.plus');
-        const quantityDisplay = cartItem.querySelector('.quantity');
-        const removeBtn = cartItem.querySelector('.remove-item-btn');
-        
-        minusBtn.addEventListener('click', () => {
-            if (item.quantity > 1) {
-                item.quantity--;
-                quantityDisplay.textContent = item.quantity;
-                updateCartModal();
-            } else {
-                cart.splice(index, 1);
-                updateCartCount();
-                updateCartModal();
-            }
-        });
-        
-        plusBtn.addEventListener('click', () => {
-            item.quantity++;
-            quantityDisplay.textContent = item.quantity;
-            updateCartModal();
-        });
-        
-        removeBtn.addEventListener('click', () => {
-            cart.splice(index, 1);
-            updateCartCount();
-            updateCartModal();
-        });
-    });
-    
-    cartTotal.textContent = calculateTotal();
-}
-
-// دالة مساعدة للحصول على صورة المنتج
-function getProductImage(productId) {
-    const product = productsData.find(p => p.id === productId);
-    return product ? product.image : '';
-}
-
-// حساب المجموع الكلي
-function calculateTotal() {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-}
-
-// تحديث عداد السلة
-function updateCartCount() {
-    let count = cart.reduce((total, item) => total + item.quantity, 0);
-    cartCount.textContent = count;
-}
-
-// عرض البراندات
-function displayBrands() {
-    brandsContainer.innerHTML = '';
-    
-    brandsData.forEach(brand => {
-        const brandCard = document.createElement('div');
-        brandCard.className = 'brand-card';
-        brandCard.dataset.brandId = brand.id;
-        
-        brandCard.innerHTML = `
-            <div class="brand-logo">
-                <img src="${brand.logo}" alt="${brand.nameAr}" loading="lazy">
-            </div>
-            <div class="brand-info">
-                <h3>${brand.nameAr}</h3>
-                <p>${brand.nameEn}</p>
-            </div>
-        `;
-        
-        brandsContainer.appendChild(brandCard);
-        
-        brandCard.addEventListener('click', () => {
-            const brandSection = document.getElementById(brand.id);
-            if (brandSection) {
-                brandSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-}
 
 // تحميل البيانات من ملف JSON
 function loadData() {
@@ -490,19 +143,48 @@ function loadData() {
         .catch(error => console.error('Error loading data:', error));
 }
 
+// عرض البراندات
+function displayBrands() {
+    brandsContainer.innerHTML = '';
+    
+    brandsData.forEach(brand => {
+        const brandCard = document.createElement('div');
+        brandCard.className = 'brand-card';
+        brandCard.dataset.brandId = brand.id;
+        
+        brandCard.innerHTML = `
+            <div class="brand-logo">
+                <img src="${brand.logo}" alt="${brand.nameAr}" loading="lazy">
+            </div>
+            <div class="brand-info">
+                <h3>${brand.nameAr}</h3>
+                <p>${brand.nameEn}</p>
+            </div>
+        `;
+        
+        brandsContainer.appendChild(brandCard);
+        
+        brandCard.addEventListener('click', () => {
+            const brandSection = document.getElementById(brand.id);
+            if (brandSection) {
+                brandSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
 
 // عرض المنتجات
 function displayProducts(products) {
     brandsProductsContainer.innerHTML = '';
     
     // تجميع المنتجات حسب البراند
-const productsByBrand = {};
-products.forEach(product => {
-    if (!productsByBrand[product.brandId]) {
-        productsByBrand[product.brandId] = [];
-    }
-    productsByBrand[product.brandId].push(product);
-});
+    const productsByBrand = {};
+    products.forEach(product => {
+        if (!productsByBrand[product.brandId]) {
+            productsByBrand[product.brandId] = [];
+        }
+        productsByBrand[product.brandId].push(product);
+    });
     
     // إنشاء أقسام لكل براند
     for (const brandId in productsByBrand) {
@@ -637,39 +319,21 @@ function addToCart(product) {
     }, 2000);
 }
 
-// تحميل البيانات من ملف JSON
-function loadData() {
-    fetch('products.json')
-        .then(response => response.json())
-        .then(data => {
-            brandsData = data.brands.map(brand => ({
-                id: brand.id,
-                nameAr: brand.nameAr,
-                nameEn: brand.nameEn,
-                logo: brand.logo
-            }));
-            
-            productsData = [];
-            data.brands.forEach(brand => {
-                brand.perfumes.forEach(perfume => {
-                    productsData.push({
-                        id: perfume.id,
-                        brandId: brand.id,
-                        brandNameAr: brand.nameAr,
-                        brandNameEn: brand.nameEn,
-                        nameAr: perfume.nameAr,
-                        nameEn: perfume.nameEn,
-                        image: perfume.image,
-                        prices: perfume.prices
-                    });
-                });
-            });
-            
-            displayBrands();
-            displayProducts(productsData);
-            setupBrandsSlider();
-        })
-        .catch(error => console.error('Error loading data:', error));
+// دالة مساعدة للحصول على صورة المنتج
+function getProductImage(productId) {
+    const product = productsData.find(p => p.id === productId);
+    return product ? product.image : '';
+}
+
+// حساب المجموع الكلي
+function calculateTotal() {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+}
+
+// تحديث عداد السلة
+function updateCartCount() {
+    let count = cart.reduce((total, item) => total + item.quantity, 0);
+    cartCount.textContent = count;
 }
 
 // دالة لتفعيل سحب الماوس أو اللمس
@@ -724,7 +388,6 @@ function setupBrandsSlider() {
         slider.scrollLeft = scrollLeft - walk;
     });
 }
-
 
 // البحث عن المنتجات
 searchInput.addEventListener('input', () => {
@@ -880,7 +543,7 @@ const perfumeDetails = {
         season: "الصيف",
         gender: "نساء"
     },
-"guidance-46": {
+    "guidance-46": {
         features: "عطر شرقي خشبي فاخر، يجمع بين روائح اللوز الحلو، الباتشولي، والمسك. يتميز بقوة ثبات عالية تدوم لأكثر من 12 ساعة. مناسب للاستخدام المسائي والمناسبات الخاصة.",
         country: "عمان",
         season: "الشتاء، الخريف",
@@ -937,7 +600,7 @@ const perfumeDetails = {
         notes: "القلب: الكمثرى، الياسمين | القاعدة: الفانيليا، المسك"
     },
     "limmensite": {
-        features: "عطر مائي خشبي قوي، يجمع بين الزنجبيل، العنبر، والأعشاب البحرية. عصري وجذاب مع ثبات يصل إلى 10 ساعات. من أفضل عطور لويس فيتون للرجال.",
+        features: "عطر مائي خشبي قوي، يجمع بين الزنجبيل، العنبر، والأعشاب البحرية. عصري وجذاب مع ثبات يصل إلى 10 ساعة. من أفضل عطور لويس فيتون للرجال.",
         country: "فرنسا",
         season: "جميع الفصول",
         gender: "رجالي",
@@ -1240,531 +903,547 @@ const perfumeDetails = {
         concentration: "Eau de Parfum Intense",
         notes: "القلب: الفلفل الأسود، جوزة الطيب | القاعدة: الفانيليا، العنبر، المسك"
     },
-
     "hibiscus-mahajadja": {
-features: "عطر زهري استوائي فاخر، يجمع بين أزهار الكركديه، الفانيليا، وجوز الهند. يتميز برائحة أنثوية جريئة مع ثبات يصل إلى 10 ساعات. مناسب للسهرات والمناسبات الخاصة.",
-country: "فرنسا",
-season: "الصيف، الربيع",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: زهر الكركديه، الياسمين | القاعدة: الفانيليا، جوز الهند، المسك"
-},
-"oud-maracuja": {
-features: "عطر شرقي فريد من نوعه، يدمج بين العود الفاخر وفاكهة الماراكوجا الاستوائية. يعطي إحساسًا بالغموض والأناقة مع ثبات قوي يصل إلى 12 ساعة.",
-country: "فرنسا",
-season: "جميع الفصول",
-gender: "كلا الجنسين",
-concentration: "Eau de Parfum",
-notes: "القلب: الماراكوجا، البرغموت | القاعدة: العود، العنبر، الفانيليا"
-},
-"guilty-elixir": {
-features: "عطر شرقي خشبي مكثف، يجمع بين العود، الفانيليا، والورد. يتميز بعمق وجاذبية مع ثبات يصل إلى 14 ساعة. النسخة المطلقة من Gucci Guilty تتميز بكثافة أعلى ورائحة أكثر ثباتًا.",
-country: "إيطاليا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum Intense",
-notes: "القلب: العود، الورد | القاعدة: الفانيليا، المسك، العنبر"
-},
-"oud-intense": {
-features: "عطر خشبي شرقي قوي، يبرز فيه العود مع لمسات من الورد والمسك. يتميز برائحة فاخرة وثبات يصل إلى 12 ساعة. مناسب للاستخدام المسائي.",
-country: "إيطاليا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: العود، الورد | القاعدة: المسك، العنبر، خشب الصندل"
-},
-"homme-parfum": {
-features: "عطر خشبي زهري فاخر، يجمع بين خشب الأرز، الأوريس، والمسك. يتميز بأناقته وثباته الذي يصل إلى 10 ساعات. من أفضل عطور ديور للرجال.",
-country: "فرنسا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: خشب الأرز، الأوريس | القاعدة: المسك، العنبر"
-},
-"fahrenheit-parfum": {
-features: "عطر خشبي توابل قوي، يجمع بين خشب الصندل، الفلفل الأسود، والفانيليا. يتميز برائحته الحارة والجذابة مع ثبات يصل إلى 12 ساعة.",
-country: "فرنسا",
-season: "الشتاء",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: خشب الصندل، الفلفل الأسود | القاعدة: الفانيليا، المسك"
-},
-"homme-intense": {
-features: "عطر زهري خشبي، يجمع بين الأوريس، الياسمين، والمسك. أنيق وعصري مع ثبات يصل إلى 8 ساعات. مناسب للاستخدام اليومي والمسائي.",
-country: "فرنسا",
-season: "جميع الفصول",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: الأوريس، الياسمين | القاعدة: المسك، العنبر"
-},
-"miss-dior": {
-features: "عطر زهري فواكهي أنثوي، يجمع بين البرتقال، الورد، والفانيليا. يتميز برائحته الرومانسية والجذابة مع ثبات يصل إلى 8 ساعات.",
-country: "فرنسا",
-season: "جميع الفصول",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: البرتقال، الورد | القاعدة: الفانيليا، المسك"
-},
-"miss-dior-eau": {
-features: "عطر زهري منعش، يجمع بين الياسمين، الورد، والفانيليا. أخف من النسخة الأصلية وأكثر انعاشًا مع ثبات يصل إلى 6 ساعات.",
-country: "فرنسا",
-season: "الربيع، الصيف",
-gender: "نسائي",
-concentration: "Eau de Toilette",
-notes: "القلب: الياسمين، الورد | القاعدة: الفانيليا، المسك"
-},
-"miss-dior-blooming": {
-features: "عطر زهري فواكهي، يجمع بين الفراولة، الورد، والفانيليا. أنثوي وحلو مع ثبات يصل إلى 7 ساعات. مناسب للاستخدام اليومي.",
-country: "فرنسا",
-season: "الربيع، الصيف",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: الفراولة، الورد | القاعدة: الفانيليا، المسك"
-},
-"jadore": {
-features: "عطر زهري أنيق، يجمع بين الياسمين، الورد، والفانيليا. أيقونة أنثوية من ديور مع ثبات يصل إلى 8 ساعات.",
-country: "فرنسا",
-season: "جميع الفصول",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: الياسمين، الورد | القاعدة: الفانيليا، المسك"
-},
-"sauvage-forte": {
-features: "نسخة مكثفة من Sauvage، تجمع بين الحمضيات، الفلفل الأسود، والمسك. قوي وجذاب مع ثبات يصل إلى 10 ساعات.",
-country: "فرنسا",
-season: "جميع الفصول",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: الحمضيات، الفلفل الأسود | القاعدة: المسك، العنبر"
-},
-"sauvage-elixir": {
-features: "عطر خشبي توابل مكثف، يجمع بين العود، الفلفل الأسود، والفانيليا. قوي جدًا مع ثبات يصل إلى 24 ساعة. النسخة الأقوى من سلسلة Sauvage.",
-country: "فرنسا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum Intense",
-notes: "القلب: العود، الفلفل الأسود | القاعدة: الفانيليا، المسك"
-},
-"sauvage-parfum": {
-features: "عطر خشبي شرقي، يجمع بين خشب الأرز، العنبر، والمسك. أنيق وثابت مع ثبات يصل إلى 12 ساعة.",
-country: "فرنسا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: خشب الأرز، العنبر | القاعدة: المسك، الفانيليا"
-},
-"born-in-roma": {
-features: "عطر زهري خشبي، يجمع بين البرغموت، الياسمين، والفانيليا. أنثوي وجذاب مع ثبات يصل إلى 8 ساعات. مستوحى من أناقة روما.",
-country: "إيطاليا",
-season: "جميع الفصول",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: البرغموت، الياسمين | القاعدة: الفانيليا، المسك"
-},
-"megamare": {
-features: "عطر مائي قوي جدًا، يجمع بين الأعشاب البحرية، العنبر، والمسك. يتميز بقوة ثبات غير عادية تصل إلى 24 ساعة. مناسب لمحبي الروائح القوية.",
-country: "إيطاليا",
-season: "الصيف",
-gender: "كلا الجنسين",
-concentration: "Extrait de Parfum",
-notes: "القلب: الأعشاب البحرية، العنبر | القاعدة: المسك، خشب الأرز"
-},
-"terroni": {
-features: "عطر ترابي خشبي، يجمع بين التبغ، الباتشولي، والفانيليا. دافئ وغامض مع ثبات يصل إلى 12 ساعة. مستوحى من تربة إيطاليا الجنوبية.",
-country: "إيطاليا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: التبغ، الباتشولي | القاعدة: الفانيليا، المسك"
-},
-"bergamask": {
-features: "عطر حمضي خشبي، يجمع بين البرغموت، خشب الصندل، والمسك. منعش وأنيق مع ثبات يصل إلى 8 ساعات. مستوحى من منطقة كالابريا الإيطالية.",
-country: "إيطاليا",
-season: "الربيع، الصيف",
-gender: "كلا الجنسين",
-concentration: "Eau de Parfum",
-notes: "القلب: البرغموت، خشب الصندل | القاعدة: المسك، العنبر"
-},
-"the-one": {
-features: "عطر شرقي خشبي، يجمع بين التبغ، العنبر، والفانيليا. دافئ وجذاب مع ثبات يصل إلى 8 ساعات. من أشهر عطور دولتشي آند غابانا للرجال.",
-country: "إيطاليا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: التبغ، العنبر | القاعدة: الفانيليا، المسك"
-},
-"devotion-intense": {
-features: "عطر حلو شرقي، يجمع بين الليمون، الفانيليا، والمسك. أنثوي وجذاب مع ثبات يصل إلى 10 ساعات. النسخة المكثفة من Devotion.",
-country: "إيطاليا",
-season: "الشتاء، الخريف",
-gender: "نسائي",
-concentration: "Eau de Parfum Intense",
-notes: "القلب: الليمون، الفانيليا | القاعدة: المسك، العنبر"
-},
-"k-parfum": {
-features: "عطر خشبي توابل، يجمع بين الفلفل الأسود، خشب الصندل، والفانيليا. قوي وثابت مع ثبات يصل إلى 10 ساعات. النسخة المطلقة من K.",
-country: "إيطاليا",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: الفلفل الأسود، خشب الصندل | القاعدة: الفانيليا، المسك"
-},
-"k-eau": {
-features: "عطر حمضي خشبي، يجمع بين البرغموت، خشب الأرز، والمسك. منعش وأنيق مع ثبات يصل إلى 6 ساعات. النسخة الأخف من K.",
-country: "إيطاليا",
-season: "الربيع، الصيف",
-gender: "رجالي",
-concentration: "Eau de Toilette",
-notes: "القلب: البرغموت، خشب الأرز | القاعدة: المسك، العنبر"
-},
-"midnight-roses": {
-features: "عطر زهري فواكهي، يجمع بين التوت، الورد، والفانيليا. أنثوي ورومانسي مع ثبات يصل إلى 8 ساعات. مناسب للسهرات.",
-country: "فرنسا",
-season: "جميع الفصول",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: التوت، الورد | القاعدة: الفانيليا، المسك"
-},
-"her-limited": {
-features: "عطر فواكهي زهري، يجمع بين الفراولة، الفانيليا، والمسك. حلو وجذاب مع ثبات يصل إلى 8 ساعات. نسخة محدودة من Burberry Her.",
-country: "المملكة المتحدة",
-season: "جميع الفصول",
-gender: "نسائي",
-concentration: "Eau de Parfum",
-notes: "القلب: الفراولة، الفانيليا | القاعدة: المسك، العنبر"
-},
-"ombre-leather-edp": {
-features: "عطر جلدي خشبي، يجمع بين جلد الغزال، خشب الصندل، والفانيليا. قوي وثابت مع ثبات يصل إلى 10 ساعات. من أشهر عطور توم فورد للرجال.",
-country: "الولايات المتحدة",
-season: "الشتاء، الخريف",
-gender: "رجالي",
-concentration: "Eau de Parfum",
-notes: "القلب: جلد الغزال، خشب الصندل | القاعدة: الفانيليا، المسك"
-},
-"ombre-leather-parfum": {
-features: "نسخة مكثفة من Ombre Leather، تجمع بين الجلد، العود، والفانيليا. قوي جدًا مع ثبات يصل إلى 14 ساعة. النسخة الأقوى من السلسلة.",
-country: "الولايات المتحدة",
-season: "الشتاء",
-gender: "رجالي",
-concentration: "Parfum",
-notes: "القلب: الجلد، العود | القاعدة: الفانيليا، المسك"
-},
-"black-orchid": {
-features: "عطر شرقي غامض، يجمع بين الترفل الأسود، الفانيليا، والباتشولي. فريد من نوعه مع ثبات يصل إلى 12 ساعة. أيقونة من توم فورد.",
-country: "الولايات المتحدة",
-season: "الشتاء، الخريف",
-gender: "كلا الجنسين",
-concentration: "Eau de Parfum",
-notes: "القلب: الترفل الأسود، الفانيليا | القاعدة: الباتشولي، المسك"
-},
-"blanche-bete": {
-    features: "عطر نسائي فاخر يجمع بين روائح الفانيليا والمسك الأبيض مع لمسات من جوز الهند، يعطي إحساساً بالأنوثة والجاذبية.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"libre-platinum": {
-    features: "عطر زهري خشبي يجمع بين روائح اللافندر والبرتقال مع لمسات من الفانيليا، أنيق وعصري.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"la-belle-paradise-garden": {
-    features: "عطر فواكهي زهري يجمع بين الكمثرى والفانيليا مع لمسات من الياسمين، حلو وجذاب.",
-    country: "فرنسا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"la-belle": {
-    features: "عطر شرقي فواكهي يجمع بين الكمثرى والفانيليا والورد، أنثوي ورومانسي.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"eau-de-parfum-giorgio-armani": {
-    features: "عطر زهري خشبي يجمع بين الورد والباتشولي والمسك، كلاسيكي وأنيق.",
-    country: "إيطاليا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"miss-dior": {
-    features: "عطر زهري فواكهي يجمع بين البرتقال والورد والفانيليا، أيقونة أنثوية من ديور.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"miss-dior-eau": {
-    features: "نسخة أخف من Miss Dior، تجمع بين الياسمين والورد والفانيليا، منعشة ورومانسية.",
-    country: "فرنسا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"miss-dior-blooming": {
-    features: "عطر زهري فواكهي يجمع بين الفراولة والورد والفانيليا، أنثوي وحلو.",
-    country: "فرنسا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"my-way-intense": {
-    features: "عطر زهري فواكهي يجمع بين البرتقال والياسمين والفانيليا، أنثوي وجذاب.",
-    country: "إيطاليا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"versace-crystal-noir": {
-    features: "عطر زهري خشبي يجمع بين الجاردينيا وجوز الهند والمسك، غامض وجذاب.",
-    country: "إيطاليا",
-    season: "الشتاء، الخريف",
-    gender: "نسائي"
-},
-"ariana-grande": {
-    features: "عطر حلو فواكهي يجمع بين الكمثرى والفانيليا والمسك، حلو وجذاب.",
-    country: "الولايات المتحدة",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"so-scandal": {
-    features: "عطر زهري شرقي يجمع بين الجاردينيا والفانيليا والمسك، جريء وجذاب.",
-    country: "فرنسا",
-    season: "الشتاء، الخريف",
-    gender: "نسائي"
-},
-"burberry-her-limited": {
-    features: "عطر فواكهي زهري يجمع بين الفراولة والفانيليا والمسك، أنثوي وحلو.",
-    country: "المملكة المتحدة",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"valentino-born-in-roma": {
-    features: "عطر زهري خشبي يجمع بين البرغموت والياسمين والفانيليا، أنيق وعصري.",
-    country: "إيطاليا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"212-sexy": {
-    features: "عطر زهري فواكهي يجمع بين البرتقال والفانيليا والمسك، جذاب وأنثوي.",
-    country: "إسبانيا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"jadore-eau-de-parfum": {
-    features: "عطر زهري أنيق يجمع بين الياسمين والورد والفانيليا، أيقونة أنثوية من لانكوم.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"midnight-roses": {
-    features: "عطر زهري فواكهي يجمع بين التوت والورد والفانيليا، أنثوي ورومانسي.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"poudre-narciso": {
-    features: "عطر مسكي زهري يجمع بين المسك الأبيض والياسمين والفانيليا، ناعم وجذاب.",
-    country: "إسبانيا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"billi-eilish": {
-    features: "عطر شرقي حلو يجمع بين الفانيليا والكاكاو والمسك، دافئ وجذاب.",
-    country: "الولايات المتحدة",
-    season: "الشتاء، الخريف",
-    gender: "نسائي"
-},
-"signature-roberto-cavalli": {
-    features: "عطر زهري فواكهي يجمع بين البرتقال والياسمين والفانيليا، أنثوي وجذاب.",
-    country: "إيطاليا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"delina-exclusive": {
-    features: "عطر زهري فاخر يجمع بين الورد والزنبق والفانيليا، أنثوي ورومانسي.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"valaya": {
-    features: "عطر مسكي زهري يجمع بين المسك الأبيض والبرغموت والفانيليا، ناعم وجذاب.",
-    country: "فرنسا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"palatine": {
-    features: "عطر زهري خشبي يجمع بين الورد والباتشولي والمسك، فاخر وأنيق.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"erba-pura": {
-    features: "عطر فواكهي مسكي يجمع بين الفواكه الاستوائية والفانيليا والمسك، حلو وجذاب.",
-    country: "إيطاليا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"hibiscus-mahajadja": {
-    features: "عطر زهري استوائي فاخر يجمع بين أزهار الكركديه والفانيليا وجوز الهند، جريء وجذاب.",
-    country: "فرنسا",
-    season: "الصيف، الربيع",
-    gender: "نسائي"
-},
-"sora": {
-    features: "عطر زهري منعش يجمع بين الياسمين والبرغموت والمسك، أنيق وحيوي.",
-    country: "فرنسا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"ellora": {
-    features: "عطر شرقي خشبي يجمع بين العود والورد والفانيليا، غامض وجذاب.",
-    country: "فرنسا",
-    season: "الشتاء، الخريف",
-    gender: "نسائي"
-},
-"baccarat-rouge-540": {
-    features: "عطر خشبي عنبري فاخر يجمع بين العنبر وخشب الأرز والمسك، فريد من نوعه.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "نسائي"
-},
-"symphony": {
-    features: "عطر شرقي فاخر يجمع بين الكرز والورد والعود، قوي وثابت.",
-    country: "فرنسا",
-    season: "الشتاء، الخريف",
-    gender: "نسائي"
-},
-"prada-homme-intense": {
-    features: "عطر خشبي زهري للرجال، يجمع بين الأوريس، خشب الصندل، والمسك. أنيق وثابت مع ثبات يصل إلى 10 ساعات.",
-    country: "إيطاليا",
-    season: "جميع الفصول",
-    gender: "رجالي"
-},
-"arena-garden": {
-    features: "عطر زهري استوائي، يجمع بين أزهار الكركديه، جوز الهند، والفانيليا. أنثوي وجذاب مع ثبات يصل إلى 8 ساعات.",
-    country: "فرنسا",
-    season: "الصيف",
-    gender: "نسائي"
-},
-"spicebomb-extreme": {
-    features: "عطر توابل خشبي قوي، يجمع بين الفلفل الأسود، الفانيليا، والتبغ. دافئ ومثير مع ثبات يصل إلى 12 ساعة.",
-    country: "فرنسا",
-    season: "الشتاء",
-    gender: "رجالي"
-},
-"azzaro-most-wanted": {
-    features: "عطر خشبي عنبري، يجمع بين العنبر، الفانيليا، والمسك. جذاب وثابت مع ثبات يصل إلى 8 ساعات.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "رجالي"
-},
-"thomas-kosmal-no4": {
-    features: "عطر خشبي شرقي، يجمع بين العود، الورد، والتوابل. فاخر وغامض مع ثبات يصل إلى 10 ساعات.",
-    country: "فرنسا",
-    season: "الشتاء",
-    gender: "كلا الجنسين"
-},
-"1-million-parfum": {
-    features: "عطر فواكهي توابل، يجمع بين العنب، الفلفل الوردي، والفانيليا. جذاب وثابت مع ثبات يصل إلى 8 ساعات.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "رجالي"
-},
-"chopard-black-incense": {
-    features: "عطر خشبي عنبري، يجمع بين البخور، العود، والفانيليا. غامض وفاخر مع ثبات يصل إلى 12 ساعة.",
-    country: "سويسرا",
-    season: "الشتاء",
-    gender: "رجالي"
-},
-"club-de-nuit-oud": {
-    features: "عطر شرقي خشبي، يجمع بين العود، الورد، والتوابل. قوي وثابت مع ثبات يصل إلى 14 ساعة.",
-    country: "الإمارات",
-    season: "الشتاء",
-    gender: "رجالي"
-},
-"club-de-nuit-limited": {
-    features: "عطر شرقي خشبي، يجمع بين العود، الفانيليا، والمسك. نسخة محدودة من كلوب دي نوي تتميز بعمق أكبر.",
-    country: "الإمارات",
-    season: "الشتاء",
-    gender: "رجالي"
-},
-"liquid-brown": {
-    features: "عطر خشبي حار، يجمع بين التبغ، الفانيليا، والمسك. دافئ وجذاب مع ثبات يصل إلى 8 ساعات.",
-    country: "فرنسا",
-    season: "الشتاء",
-    gender: "رجالي"
-},
-"angels-share": {
-    features: "عطر شرقي خشبي يجمع بين رائحة الكونياك والفانيليا والبلوط، يعطي إحساساً بالدفء والرفاهية.",
-    country: "فرنسا",
-    season: "الشتاء، الخريف",
-    gender: "كلا الجنسين"
-},
-"tygar": {
-    features: "عطر حمضي خشبي يجمع بين الجريب فروت والمسك والعنبر، منعش وقوي مع ثبات ممتاز.",
-    country: "إيطاليا",
-    season: "جميع الفصول",
-    gender: "رجالي"
-},
-"santal-33": {
-    features: "عطر خشبي جذاب يجمع بين خشب الصندل والجلد والمسك، أيقوني وعصري.",
-    country: "الولايات المتحدة",
-    season: "جميع الفصول",
-    gender: "كلا الجنسين"
-},
-"sora": {
-    features: "عطر زهري منعش يجمع بين الياسمين والبرغموت والمسك، أنيق وحيوي.",
-    country: "فرنسا",
-    season: "الربيع، الصيف",
-    gender: "نسائي"
-},
-"ellora": {
-    features: "عطر شرقي خشبي يجمع بين العود والورد والفانيليا، غامض وجذاب.",
-    country: "فرنسا",
-    season: "الشتاء، الخريف",
-    gender: "نسائي"
-},
-"baccarat-rouge-540": {
-    features: "عطر خشبي عنبري فاخر يجمع بين العنبر وخشب الأرز والمسك، فريد من نوعه.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "كلا الجنسين"
-},
-"promise": {
-    features: "عطر شرقي خشبي قوي يجمع بين العود والورد والتوابل، فاخر وثابت.",
-    country: "فرنسا",
-    season: "الشتاء، الخريف",
-    gender: "رجالي"
-},
-"bleu-de-chanel-parfum": {
-    features: "عطر خشبي توابل أنيق يجمع بين الحمضيات واللبان والفانيليا، كلاسيكي عصري.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "رجالي"
-},
-"experimentum": {
-    features: "عطر تجريبي يجمع بين روائح غير متوقعة من التوابل والفواكه والخشب، فريد وجريء.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "كلا الجنسين"
-},
-"montabaco-cuba": {
-    features: "عطر تبغ خشبي يجمع بين أوراق التبغ وخشب الصندل والفانيليا، دافئ وجذاب.",
-    country: "المملكة المتحدة",
-    season: "الشتاء، الخريف",
-    gender: "رجالي"
-},
-"gris-charnel": {
-    features: "عطر خشبي زهري يجمع بين التين والورد والمسك، أنيق وعميق.",
-    country: "فرنسا",
-    season: "جميع الفصول",
-    gender: "كلا الجنسين"
-}
-}
-
-
-
-
-
-
-
+        features: "عطر زهري استوائي فاخر، يجمع بين أزهار الكركديه، الفانيليا، وجوز الهند. يتميز برائحة أنثوية جريئة مع ثبات يصل إلى 10 ساعات. مناسب للسهرات والمناسبات الخاصة.",
+        country: "فرنسا",
+        season: "الصيف، الربيع",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: زهر الكركديه، الياسمين | القاعدة: الفانيليا، جوز الهند، المسك"
+    },
+    "oud-maracuja": {
+        features: "عطر شرقي فريد من نوعه، يدمج بين العود الفاخر وفاكهة الماراكوجا الاستوائية. يعطي إحساسًا بالغموض والأناقة مع ثبات قوي يصل إلى 12 ساعة.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "كلا الجنسين",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الماراكوجا، البرغموت | القاعدة: العود، العنبر، الفانيليا"
+    },
+    "guilty-elixir": {
+        features: "عطر شرقي خشبي مكثف، يجمع بين العود، الفانيليا، والورد. يتميز بعمق وجاذبية مع ثبات يصل إلى 14 ساعة. النسخة المطلقة من Gucci Guilty تتميز بكثافة أعلى ورائحة أكثر ثباتًا.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum Intense",
+        notes: "القلب: العود، الورد | القاعدة: الفانيليا، المسك، العنبر"
+    },
+    "oud-intense": {
+        features: "عطر خشبي شرقي قوي، يبرز فيه العود مع لمسات من الورد والمسك. يتميز برائحة فاخرة وثبات يصل إلى 12 ساعة. مناسب للاستخدام المسائي.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: العود، الورد | القاعدة: المسك، العنبر، خشب الصندل"
+    },
+    "homme-parfum": {
+        features: "عطر خشبي زهري فاخر، يجمع بين خشب الأرز، الأوريس، والمسك. يتميز بأناقته وثباته الذي يصل إلى 10 ساعات. من أفضل عطور ديور للرجال.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: خشب الأرز، الأوريس | القاعدة: المسك، العنبر"
+    },
+    "fahrenheit-parfum": {
+        features: "عطر خشبي توابل قوي، يجمع بين خشب الصندل، الفلفل الأسود، والفانيليا. يتميز برائحته الحارة والجذابة مع ثبات يصل إلى 12 ساعة.",
+        country: "فرنسا",
+        season: "الشتاء",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: خشب الصندل، الفلفل الأسود | القاعدة: الفانيليا، المسك"
+    },
+    "homme-intense": {
+        features: "عطر زهري خشبي، يجمع بين الأوريس، الياسمين، والمسك. أنيق وعصري مع ثبات يصل إلى 8 ساعات. مناسب للاستخدام اليومي والمسائي.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الأوريس، الياسمين | القاعدة: المسك، العنبر"
+    },
+    "miss-dior": {
+        features: "عطر زهري فواكهي أنثوي، يجمع بين البرتقال، الورد، والفانيليا. يتميز برائحته الرومانسية والجذابة مع ثبات يصل إلى 8 ساعات.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: البرتقال، الورد | القاعدة: الفانيليا، المسك"
+    },
+    "miss-dior-eau": {
+        features: "عطر زهري منعش، يجمع بين الياسمين، الورد، والفانيليا. أخف من النسخة الأصلية وأكثر انعاشًا مع ثبات يصل إلى 6 ساعات.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي",
+        concentration: "Eau de Toilette",
+        notes: "القلب: الياسمين، الورد | القاعدة: الفانيليا، المسك"
+    },
+    "miss-dior-blooming": {
+        features: "عطر زهري فواكهي، يجمع بين الفراولة، الورد، والفانيليا. أنثوي وحلو مع ثبات يصل إلى 7 ساعات. مناسب للاستخدام اليومي.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الفراولة، الورد | القاعدة: الفانيليا، المسك"
+    },
+    "jadore": {
+        features: "عطر زهري أنيق، يجمع بين الياسمين، الورد، والفانيليا. أيقونة أنثوية من ديور مع ثبات يصل إلى 8 ساعات.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الياسمين، الورد | القاعدة: الفانيليا، المسك"
+    },
+    "sauvage-forte": {
+        features: "نسخة مكثفة من Sauvage، تجمع بين الحمضيات، الفلفل الأسود، والمسك. قوي وجذاب مع ثبات يصل إلى 10 ساعات.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الحمضيات، الفلفل الأسود | القاعدة: المسك، العنبر"
+    },
+    "sauvage-elixir": {
+        features: "عطر خشبي توابل مكثف، يجمع بين العود، الفلفل الأسود، والفانيليا. قوي جدًا مع ثبات يصل إلى 24 ساعة. النسخة الأقوى من سلسلة Sauvage.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum Intense",
+        notes: "القلب: العود، الفلفل الأسود | القاعدة: الفانيليا، المسك"
+    },
+    "sauvage-parfum": {
+        features: "عطر خشبي شرقي، يجمع بين خشب الأرز، العنبر، والمسك. أنيق وثابت مع ثبات يصل إلى 12 ساعة.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: خشب الأرز، العنبر | القاعدة: المسك، الفانيليا"
+    },
+    "born-in-roma": {
+        features: "عطر زهري خشبي، يجمع بين البرغموت، الياسمين، والفانيليا. أنثوي وجذاب مع ثبات يصل إلى 8 ساعات. مستوحى من أناقة روما.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: البرغموت، الياسمين | القاعدة: الفانيليا، المسك"
+    },
+    "megamare": {
+        features: "عطر مائي قوي جدًا، يجمع بين الأعشاب البحرية، العنبر، والمسك. يتميز بقوة ثبات غير عادية تصل إلى 24 ساعة. مناسب لمحبي الروائح القوية.",
+        country: "إيطاليا",
+        season: "الصيف",
+        gender: "كلا الجنسين",
+        concentration: "Extrait de Parfum",
+        notes: "القلب: الأعشاب البحرية، العنبر | القاعدة: المسك، خشب الأرز"
+    },
+    "terroni": {
+        features: "عطر ترابي خشبي، يجمع بين التبغ، الباتشولي، والفانيليا. دافئ وغامض مع ثبات يصل إلى 12 ساعة. مستوحى من تربة إيطاليا الجنوبية.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: التبغ، الباتشولي | القاعدة: الفانيليا، المسك"
+    },
+    "bergamask": {
+        features: "عطر حمضي خشبي، يجمع بين البرغموت، خشب الصندل، والمسك. منعش وأنيق مع ثبات يصل إلى 8 ساعات. مستوحى من منطقة كالابريا الإيطالية.",
+        country: "إيطاليا",
+        season: "الربيع، الصيف",
+        gender: "كلا الجنسين",
+        concentration: "Eau de Parfum",
+        notes: "القلب: البرغموت، خشب الصندل | القاعدة: المسك، العنبر"
+    },
+    "the-one": {
+        features: "عطر شرقي خشبي، يجمع بين التبغ، العنبر، والفانيليا. دافئ وجذاب مع ثبات يصل إلى 8 ساعات. من أشهر عطور دولتشي آند غابانا للرجال.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: التبغ، العنبر | القاعدة: الفانيليا، المسك"
+    },
+    "devotion-intense": {
+        features: "عطر حلو شرقي، يجمع بين الليمون، الفانيليا، والمسك. أنثوي وجذاب مع ثبات يصل إلى 10 ساعات. النسخة المكثفة من Devotion.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "نسائي",
+        concentration: "Eau de Parfum Intense",
+        notes: "القلب: الليمون، الفانيليا | القاعدة: المسك، العنبر"
+    },
+    "k-parfum": {
+        features: "عطر خشبي توابل، يجمع بين الفلفل الأسود، خشب الصندل، والفانيليا. قوي وثابت مع ثبات يصل إلى 10 ساعات. النسخة المطلقة من K.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الفلفل الأسود، خشب الصندل | القاعدة: الفانيليا، المسك"
+    },
+    "k-eau": {
+        features: "عطر حمضي خشبي، يجمع بين البرغموت، خشب الأرز، والمسك. منعش وأنيق مع ثبات يصل إلى 6 ساعات. النسخة الأخف من K.",
+        country: "إيطاليا",
+        season: "الربيع، الصيف",
+        gender: "رجالي",
+        concentration: "Eau de Toilette",
+        notes: "القلب: البرغموت، خشب الأرز | القاعدة: المسك، العنبر"
+    },
+    "midnight-roses": {
+        features: "عطر زهري فواكهي، يجمع بين التوت، الورد، والفانيليا. أنثوي ورومانسي مع ثبات يصل إلى 8 ساعات. مناسب للسهرات.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: التوت، الورد | القاعدة: الفانيليا، المسك"
+    },
+    "her-limited": {
+        features: "عطر فواكهي زهري، يجمع بين الفراولة، الفانيليا، والمسك. حلو وجذاب مع ثبات يصل إلى 8 ساعات. نسخة محدودة من Burberry Her.",
+        country: "المملكة المتحدة",
+        season: "جميع الفصول",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الفراولة، الفانيليا | القاعدة: المسك، العنبر"
+    },
+    "ombre-leather-edp": {
+        features: "عطر جلدي خشبي، يجمع بين جلد الغزال، خشب الصندل، والفانيليا. قوي وثابت مع ثبات يصل إلى 10 ساعات. من أشهر عطور توم فورد للرجال.",
+        country: "الولايات المتحدة",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: جلد الغزال، خشب الصندل | القاعدة: الفانيليا، المسك"
+    },
+    "ombre-leather-parfum": {
+        features: "نسخة مكثفة من Ombre Leather، تجمع بين الجلد، العود، والفانيليا. قوي جدًا مع ثبات يصل إلى 14 ساعة. النسخة الأقوى من السلسلة.",
+        country: "الولايات المتحدة",
+        season: "الشتاء",
+        gender: "رجالي",
+        concentration: "Parfum",
+        notes: "القلب: الجلد، العود | القاعدة: الفانيليا، المسك"
+    },
+    "black-orchid": {
+        features: "عطر شرقي غامض، يجمع بين الترفل الأسود، الفانيليا، والباتشولي. فريد من نوعه مع ثبات يصل إلى 12 ساعة. أيقونة من توم فورد.",
+        country: "الولايات المتحدة",
+        season: "الشتاء، الخريف",
+        gender: "كلا الجنسين",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الترفل الأسود، الفانيليا | القاعدة: الباتشولي، المسك"
+    },
+    "blanche-bete": {
+        features: "عطر نسائي فاخر يجمع بين روائح الفانيليا والمسك الأبيض مع لمسات من جوز الهند، يعطي إحساساً بالأنوثة والجاذبية.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "libre-platinum": {
+        features: "عطر زهري خشبي يجمع بين روائح اللافندر والبرتقال مع لمسات من الفانيليا، أنيق وعصري.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "la-belle-paradise-garden": {
+        features: "عطر فواكهي زهري يجمع بين الكمثرى والفانيليا مع لمسات من الياسمين، حلو وجذاب.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "la-belle": {
+        features: "عطر شرقي فواكهي يجمع بين الكمثرى والفانيليا والورد، أنثوي ورومانسي.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "eau-de-parfum-giorgio-armani": {
+        features: "عطر زهري خشبي يجمع بين الورد والباتشولي والمسك، كلاسيكي وأنيق.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "miss-dior": {
+        features: "عطر زهري فواكهي يجمع بين البرتقال والورد والفانيليا، أيقونة أنثوية من ديور.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "miss-dior-eau": {
+        features: "نسخة أخف من Miss Dior، تجمع بين الياسمين والورد والفانيليا، منعشة ورومانسية.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "miss-dior-blooming": {
+        features: "عطر زهري فواكهي يجمع بين الفراولة والورد والفانيليا، أنثوي وحلو.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "my-way-intense": {
+        features: "عطر زهري فواكهي يجمع بين البرتقال والياسمين والفانيليا، أنثوي وجذاب.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "versace-crystal-noir": {
+        features: "عطر زهري خشبي يجمع بين الجاردينيا وجوز الهند والمسك، غامض وجذاب.",
+        country: "إيطاليا",
+        season: "الشتاء، الخريف",
+        gender: "نسائي"
+    },
+    "ariana-grande": {
+        features: "عطر حلو فواكهي يجمع بين الكمثرى والفانيليا والمسك، حلو وجذاب.",
+        country: "الولايات المتحدة",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "so-scandal": {
+        features: "عطر زهري شرقي يجمع بين الجاردينيا والفانيليا والمسك، جريء وجذاب.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "نسائي"
+    },
+    "burberry-her-limited": {
+        features: "عطر فواكهي زهري يجمع بين الفراولة والفانيليا والمسك، أنثوي وحلو.",
+        country: "المملكة المتحدة",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "valentino-born-in-roma": {
+        features: "عطر زهري خشبي يجمع بين البرغموت والياسمين والفانيليا، أنيق وعصري.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "212-sexy": {
+        features: "عطر زهري فواكهي يجمع بين البرتقال والفانيليا والمسك، جذاب وأنثوي.",
+        country: "إسبانيا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "jadore-eau-de-parfum": {
+        features: "عطر زهري أنيق يجمع بين الياسمين والورد والفانيليا، أيقونة أنثوية من لانكوم.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "midnight-roses": {
+        features: "عطر زهري فواكهي يجمع بين التوت والورد والفانيليا، أنثوي ورومانسي.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "poudre-narciso": {
+        features: "عطر مسكي زهري يجمع بين المسك الأبيض والياسمين والفانيليا، ناعم وجذاب.",
+        country: "إسبانيا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "billi-eilish": {
+        features: "عطر شرقي حلو يجمع بين الفانيليا والكاكاو والمسك، دافئ وجذاب.",
+        country: "الولايات المتحدة",
+        season: "الشتاء، الخريف",
+        gender: "نسائي"
+    },
+    "signature-roberto-cavalli": {
+        features: "عطر زهري فواكهي يجمع بين البرتقال والياسمين والفانيليا، أنثوي وجذاب.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "delina-exclusive": {
+        features: "عطر زهري فاخر يجمع بين الورد والزنبق والفانيليا، أنثوي ورومانسي.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "valaya": {
+        features: "عطر مسكي زهري يجمع بين المسك الأبيض والبرغموت والفانيليا، ناعم وجذاب.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "palatine": {
+        features: "عطر زهري خشبي يجمع بين الورد والباتشولي والمسك، فاخر وأنيق.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "erba-pura": {
+        features: "عطر فواكهي مسكي يجمع بين الفواكه الاستوائية والفانيليا والمسك، حلو وجذاب.",
+        country: "إيطاليا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "hibiscus-mahajadja": {
+        features: "عطر زهري استوائي فاخر يجمع بين أزهار الكركديه والفانيليا وجوز الهند، جريء وجذاب.",
+        country: "فرنسا",
+        season: "الصيف، الربيع",
+        gender: "نسائي"
+    },
+    "sora": {
+        features: "عطر زهري منعش يجمع بين الياسمين والبرغموت والمسك، أنيق وحيوي.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "ellora": {
+        features: "عطر شرقي خشبي يجمع بين العود والورد والفانيليا، غامض وجذاب.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "نسائي"
+    },
+    "baccarat-rouge-540": {
+        features: "عطر خشبي عنبري فاخر يجمع بين العنبر وخشب الأرز والمسك، فريد من نوعه.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "نسائي"
+    },
+    "symphony": {
+        features: "عطر شرقي فاخر يجمع بين الكرز والورد والعود، قوي وثابت.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "نسائي"
+    },
+    "prada-homme-intense": {
+        features: "عطر خشبي زهري للرجال، يجمع بين الأوريس، خشب الصندل، والمسك. أنيق وثابت مع ثبات يصل إلى 10 ساعات.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "رجالي"
+    },
+    "arena-garden": {
+        features: "عطر زهري استوائي، يجمع بين أزهار الكركديه، جوز الهند، والفانيليا. أنثوي وجذاب مع ثبات يصل إلى 8 ساعات.",
+        country: "فرنسا",
+        season: "الصيف",
+        gender: "نسائي"
+    },
+    "spicebomb-extreme": {
+        features: "عطر توابل خشبي قوي، يجمع بين الفلفل الأسود، الفانيليا، والتبغ. دافئ ومثير مع ثبات يصل إلى 12 ساعة.",
+        country: "فرنسا",
+        season: "الشتاء",
+        gender: "رجالي"
+    },
+    "azzaro-most-wanted": {
+        features: "عطر خشبي عنبري، يجمع بين العنبر، الفانيليا، والمسك. جذاب وثابت مع ثبات يصل إلى 8 ساعات.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "رجالي"
+    },
+    "thomas-kosmal-no4": {
+        features: "عطر خشبي شرقي، يجمع بين العود، الورد، والتوابل. فاخر وغامض مع ثبات يصل إلى 10 ساعات.",
+        country: "فرنسا",
+        season: "الشتاء",
+        gender: "كلا الجنسين"
+    },
+    "1-million-parfum": {
+        features: "عطر فواكهي توابل، يجمع بين العنب، الفلفل الوردي، والفانيليا. جذاب وثابت مع ثبات يصل إلى 8 ساعات.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "رجالي"
+    },
+    "chopard-black-incense": {
+        features: "عطر خشبي عنبري، يجمع بين البخور، العود، والفانيليا. غامض وفاخر مع ثبات يصل إلى 12 ساعة.",
+        country: "سويسرا",
+        season: "الشتاء",
+        gender: "رجالي"
+    },
+    "club-de-nuit-oud": {
+        features: "عطر شرقي خشبي، يجمع بين العود، الورد، والتوابل. قوي وثابت مع ثبات يصل إلى 14 ساعة.",
+        country: "الإمارات",
+        season: "الشتاء",
+        gender: "رجالي"
+    },
+    "club-de-nuit-limited": {
+        features: "عطر شرقي خشبي، يجمع بين العود، الفانيليا، والمسك. نسخة محدودة من كلوب دي نوي تتميز بعمق أكبر.",
+        country: "الإمارات",
+        season: "الشتاء",
+        gender: "رجالي"
+    },
+    "liquid-brown": {
+        features: "عطر خشبي حار، يجمع بين التبغ، الفانيليا، والمسك. دافئ وجذاب مع ثبات يصل إلى 8 ساعات.",
+        country: "فرنسا",
+        season: "الشتاء",
+        gender: "رجالي"
+    },
+    "angels-share": {
+        features: "عطر شرقي خشبي يجمع بين رائحة الكونياك والفانيليا والبلوط، يعطي إحساساً بالدفء والرفاهية.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "كلا الجنسين"
+    },
+    "tygar": {
+        features: "عطر حمضي خشبي يجمع بين الجريب فروت والمسك والعنبر، منعش وقوي مع ثبات ممتاز.",
+        country: "إيطاليا",
+        season: "جميع الفصول",
+        gender: "رجالي"
+    },
+    "santal-33": {
+        features: "عطر خشبي جذاب يجمع بين خشب الصندل والجلد والمسك، أيقوني وعصري.",
+        country: "الولايات المتحدة",
+        season: "جميع الفصول",
+        gender: "كلا الجنسين"
+    },
+    "sora": {
+        features: "عطر زهري منعش يجمع بين الياسمين والبرغموت والمسك، أنيق وحيوي.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي"
+    },
+    "ellora": {
+        features: "عطر شرقي خشبي يجمع بين العود والورد والفانيليا، غامض وجذاب.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "نسائي"
+    },
+    "baccarat-rouge-540": {
+        features: "عطر خشبي عنبري فاخر يجمع بين العنبر وخشب الأرز والمسك، فريد من نوعه.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "كلا الجنسين"
+    },
+    "promise": {
+        features: "عطر شرقي خشبي قوي يجمع بين العود والورد والتوابل، فاخر وثابت.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي"
+    },
+    "bleu-de-chanel-parfum": {
+        features: "عطر خشبي توابل أنيق يجمع بين الحمضيات واللبان والفانيليا، كلاسيكي عصري.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "رجالي"
+    },
+    "experimentum": {
+        features: "عطر تجريبي يجمع بين روائح غير متوقعة من التوابل والفواكه والخشب، فريد وجريء.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "كلا الجنسين"
+    },
+    "montabaco-cuba": {
+        features: "عطر تبغ خشبي يجمع بين أوراق التبغ وخشب الصندل والفانيليا، دافئ وجذاب.",
+        country: "المملكة المتحدة",
+        season: "الشتاء، الخريف",
+        gender: "رجالي"
+    },
+    "gris-charnel": {
+        features: "عطر خشبي زهري يجمع بين التين والورد والمسك، أنيق وعميق.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "كلا الجنسين"
+    },
+    "tilia": {
+        features: "عطر زهري حلو يجمع بين الزهور الصفراء والبيضاء مع لمسات من العسل والعشب، يعطي إحساساً بالنعومة والأنوثة.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "نسائي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الزهور الصفراء، الزهور البيضاء | القاعدة: العسل، العشب"
+    },
+    "ganymede": {
+        features: "عطر معدني فريد يجمع بين الجلود والعود مع لمسات من المسك والروائح الزهرية الفاكهية، يعطي إحساساً بالدفء والنعومة.",
+        country: "فرنسا",
+        season: "جميع الفصول",
+        gender: "كلا الجنسين",
+        concentration: "Eau de Parfum",
+        notes: "القلب: الجلود، العود | القاعدة: المسك، الروائح الزهرية الفاكهية"
+    },
+    "aldebaran": {
+        features: "عطر منعش حيوي يجمع بين مسك الروم والزهور البيضاء مع لمسات من الروائح العشبية والتابلي المنعش، يعطي إحساساً بالحيوية والانتعاش.",
+        country: "فرنسا",
+        season: "الربيع، الصيف",
+        gender: "كلا الجنسين",
+        concentration: "Eau de Parfum",
+        notes: "القلب: مسك الروم، الزهور البيضاء | القاعدة: الروائح العشبية، التابلي المنعش"
+    }
+};
 
 // عناصر نافذة التفاصيل
 const detailsOverlay = document.querySelector('.perfume-details-overlay');
@@ -1826,16 +1505,171 @@ function createGoldParticles() {
     }
 }
 
+// تحديث عرض السلة مع التحسينات الجديدة
+function updateCartModal() {
+    let cartItems = document.querySelector('.cart-items');
+    let cartTotal = document.querySelector('.cart-total span');
+    
+    cartItems.innerHTML = '';
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p>السلة فارغة</p>';
+        cartTotal.textContent = '0';
+        return;
+    }
+    
+    // زر إلغاء جميع الطلبات
+    const clearAllBtn = document.createElement('button');
+    clearAllBtn.className = 'clear-all-btn';
+    clearAllBtn.innerHTML = '🗑️ إلغاء جميع الطلبات';
+    clearAllBtn.addEventListener('click', () => {
+        cart = [];
+        updateCartCount();
+        updateCartModal();
+    });
+    cartItems.appendChild(clearAllBtn);
+    
+    // عرض العناصر في السلة
+    cart.forEach((item, index) => {
+        let cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.innerHTML = `
+            <div class="item-image">
+                <img src="${getProductImage(item.id)}" alt="${item.name}" loading="lazy">
+            </div>
+            <div class="item-details">
+                <div class="item-info">
+                    <h4>${item.name}</h4>
+                    <p>${item.size} مل × ${item.quantity}</p>
+                    <p class="item-price">${item.price * item.quantity} دينار</p>
+                </div>
+                <div class="item-actions">
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus">+</button>
+                    </div>
+                    <button class="remove-item-btn">❌ إلغاء هذا الطلب</button>
+                </div>
+            </div>
+        `;
+        
+        cartItems.appendChild(cartItem);
+        
+        // أحداث الأزرار
+        const minusBtn = cartItem.querySelector('.minus');
+        const plusBtn = cartItem.querySelector('.plus');
+        const quantityDisplay = cartItem.querySelector('.quantity');
+        const removeBtn = cartItem.querySelector('.remove-item-btn');
+        
+        minusBtn.addEventListener('click', () => {
+            if (item.quantity > 1) {
+                item.quantity--;
+                quantityDisplay.textContent = item.quantity;
+                updateCartModal();
+            } else {
+                cart.splice(index, 1);
+                updateCartCount();
+                updateCartModal();
+            }
+        });
+        
+        plusBtn.addEventListener('click', () => {
+            item.quantity++;
+            quantityDisplay.textContent = item.quantity;
+            updateCartModal();
+        });
+        
+        removeBtn.addEventListener('click', () => {
+            cart.splice(index, 1);
+            updateCartCount();
+            updateCartModal();
+        });
+    });
+    
+    cartTotal.textContent = calculateTotal();
+}
+
+// إرسال الطلب عبر واتساب
+checkoutForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // جمع البيانات مع التحقق من وجودها
+    const name = checkoutForm.elements[0].value;
+    const phone = checkoutForm.elements[1].value;
+    const city = checkoutForm.elements[2].value;
+    const landmark = checkoutForm.elements[3].value;
+    const address = checkoutForm.elements[4].value;
+
+    // تنظيف رقم الهاتف وإزالة أي أحرف غير رقمية
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    // التحقق من صحة رقم الهاتف
+    if (!cleanPhone || cleanPhone.length < 8) {
+        alert('الرجاء إدخال رقم هاتف صحيح (8 أرقام على الأقل)');
+        return;
+    }
+
+    // إنشاء رسالة واتساب
+    let message = `طلب جديد من PERFORMANIA - AKRAM%0A%0A`;
+    message += `👤 *الاسم:* ${name}%0A`;
+    message += `📱 *رقم الهاتف:* ${phone}%0A`;
+    message += `📍 *المحافظة:* ${city}%0A`;
+    message += `🗺️ *أقرب نقطة دالة:* ${landmark}%0A`;
+    message += `🏠 *العنوان التفصيلي:* ${address}%0A%0A`;
+    message += `🛒 *الطلبات:*%0A`;
+
+    if (cart.length === 0) {
+        message += `- لا توجد عناصر في السلة%0A`;
+    } else {
+        cart.forEach(item => {
+            message += `- ${item.name} (${item.size} مل) × ${item.quantity}: ${item.price * item.quantity} دينار%0A`;
+        });
+    }
+
+    message += `%0A💰 *المجموع:* ${calculateTotal()} دينار`;
+
+    // إنشاء رابط واتساب مع الرقم الصحيح (بدون تكرار رمز الدولة)
+    const whatsappUrl = `https://wa.me/9647870272308?text=${message}`;
+    
+    // فتح الرابط في نافذة جديدة
+    window.open(whatsappUrl, '_blank');
+
+    // إعادة تعيين السلة والنموذج
+    cart = [];
+    updateCartCount();
+    checkoutOverlay.style.display = 'none';
+    checkoutForm.reset();
+    
+    // إظهار تنبيه بالإرسال الناجح
+    alert('تم إرسال طلبك بنجاح! سنتصل بك قريباً لتأكيد التفاصيل.');
+});
+
 // استدعاء الدالة عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
-    createGoldParticles();
-
+    // إنشاء خيارات المحافظات
+    const governorates = [
+        "بغداد", "نينوى", "البصرة", "أربيل", "الأنبار", "كربلاء", 
+        "النجف", "ذي قار", "ديالى", "صلاح الدين", "السليمانية", 
+        "واسط", "بابل", "القادسية", "كركوك", "ميسان", "دهوك", "المثنى"
+    ];
     
-    // إعادة إنشاء الجزيئات كل 15 ثانية للحفاظ على الحركة
+    const citySelect = checkoutForm.querySelector('select');
+    governorates.forEach(gov => {
+        const option = document.createElement('option');
+        option.value = gov;
+        option.textContent = gov;
+        citySelect.appendChild(option);
+    });
+    
+    // تحميل البيانات
+    loadData();
+    
+    // إنشاء الجزيئات الذهبية
+    createGoldParticles();
     setInterval(() => {
         const particles = document.querySelectorAll('.gold-particle');
         particles.forEach(p => p.remove());
         createGoldParticles();
     }, 15000);
 });
-
