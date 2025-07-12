@@ -1650,9 +1650,52 @@
           }
         }
       ]
+    },
+    {
+      "id": "marc-antoine-barrois",
+      "nameAr": "مارك أنطوان باروا",
+      "nameEn": "Marc-Antoine Barrois",
+      "logo": "images/brands/marc-antoine-barrois.png",
+      "perfumes": [
+        {
+          "id": "tilia",
+          "nameAr": "تيلا",
+          "nameEn": "Tilia",
+          "image": "images/products/tilia.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 21000,
+            "10ml": 40000
+          }
+        },
+        {
+          "id": "ganymede",
+          "nameAr": "جانيميد",
+          "nameEn": "Ganymede",
+          "image": "images/products/ganymede.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 21000,
+            "10ml": 40000
+          }
+        },
+        {
+          "id": "aldebaran",
+          "nameAr": "الدبران",
+          "nameEn": "Aldebaran",
+          "image": "images/products/aldebaran.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 21000,
+            "10ml": 40000
+          }
+        }
+      ]
     }
   ]
 }  
+  
+
   
 
   
