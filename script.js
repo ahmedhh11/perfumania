@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+    cartBtn = document.querySelector('.cart-btn');
+    cartOverlay = document.querySelector('.cart-overlay');
+    closeCart = document.querySelector('.close-cart');
+  
+    cartBtn.addEventListener('click', () => {
+        updateCartModal();
+        cartOverlay.style.display = 'flex';
+    });
+  
+    closeCart.addEventListener('click', () => {
+        cartOverlay.style.display = 'none';
+    });
+  
+    // 🔁 باقي كودك مثل checkout وهكذا...
+  
     const sliderContainer = document.querySelector('.slider-container');
     const slides = [
         'images/slider1.jpg',
