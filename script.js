@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // 🔁 باقي كودك مثل checkout وهكذا...
   
+
     const sliderContainer = document.querySelector('.slider-container');
     const slides = [
         'images/slider1.jpg',
@@ -123,6 +124,118 @@ let brandsProductsContainer = document.getElementById('brands-products-container
 // متغيرات لتخزين البيانات
 let brandsData = [];
 let productsData = [];
+
+// فتح وإغلاق السلة
+cartBtn.addEventListener('click', () => {
+    updateCartModal();
+    cartOverlay.style.display = 'flex';
+});
+
+closeCart.addEventListener('click', () => {
+    cartOverlay.style.display = 'none';
+});
+
+// فتح وإغلاق نافذة الطلب
+checkoutBtn.addEventListener('click', () => {
+    cartOverlay.style.display = 'none';
+    checkoutOverlay.style.display = 'flex';
+    alert("الآن يمكنك اختيار أي من محافظات العراق الـ18 المتوفرة في القائمة.");
+});
+
+closeCheckout.addEventListener('click', () => {
+    checkoutOverlay.style.display = 'none';
+});
+
+// إنشاء خيارات المحافظات ديناميكياً
+document.addEventListener('DOMContentLoaded', function() {
+    const governorates = [
+        "بغداد",
+        "نينوى",
+        "البصرة",
+        "أربيل",
+        "الأنبار",
+        "كربلاء",
+        "النجف",
+        "ذي قار",
+        "ديالى",
+        "صلاح الدين",
+        "السليمانية",
+        "واسط",
+        "بابل",
+        "القادسية",
+        "كركوك",
+        "ميسان",
+        "دهوك",
+        "المثنى"
+    ];
+    
+    const citySelect = checkoutForm.querySelector('select');
+    
+    governorates.forEach(gov => {
+        const option = document.createElement('option');
+        option.value = gov;
+        option.textContent = gov;
+        citySelect.appendChild(option);
+    });
+    
+    // تحميل البيانات
+    loadData();
+});
+
+// إرسال الطلب عبر واتساب
+checkoutForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // جمع البيانات مع التحقق من وجودها
+    const name = checkoutForm.elements[0].value;
+    const phone = checkoutForm.elements[1].value;
+    const city = checkoutForm.elements[2].value;
+    const landmark = checkoutForm.elements[3].value;
+    const address = checkoutForm.elements[4].value;
+
+    // تنظيف رقم الهاتف وإزالة أي أحرف غير رقمية
+    const cleanPhone = phone.replace(/\D/g, '');
+    
+    // التحقق من صحة رقم الهاتف
+    if (!cleanPhone || cleanPhone.length < 8) {
+        alert('الرجاء إدخال رقم هاتف صحيح (8 أرقام على الأقل)');
+        return;
+    }
+
+    // إنشاء رسالة واتساب
+    let message = `طلب جديد من PERFORMANIA - AKRAM%0A%0A`;
+    message += `👤 *الاسم:* ${name}%0A`;
+    message += `📱 *رقم الهاتف:* ${phone}%0A`;
+    message += `📍 *المحافظة:* ${city}%0A`;
+    message += `🗺️ *أقرب نقطة دالة:* ${landmark}%0A`;
+    message += `🏠 *العنوان التفصيلي:* ${address}%0A%0A`;
+    message += `🛒 *الطلبات:*%0A`;
+
+    if (cart.length === 0) {
+        message += `- لا توجد عناصر في السلة%0A`;
+    } else {
+        cart.forEach(item => {
+            message += `- ${item.name} (${item.size} مل) × ${item.quantity}: ${item.price * item.quantity} دينار%0A`;
+        });
+    }
+
+    message += `%0A💰 *المجموع:* ${calculateTotal()} دينار`;
+
+    // إنشاء رابط واتساب مع الرقم الصحيح (بدون تكرار رمز الدولة)
+    const whatsappUrl = `https://wa.me/9647870272308?text=${message}`;
+    
+    // فتح الرابط في نافذة جديدة
+    window.open(whatsappUrl, '_blank');
+
+    // إعادة تعيين السلة والنموذج
+    cart = [];
+    updateCartCount();
+    checkoutOverlay.style.display = 'none';
+    checkoutForm.reset();
+    
+    // إظهار تنبيه بالإرسال الناجح
+    alert('تم إرسال طلبك بنجاح! سنتصل بك قريباً لتأكيد التفاصيل.');
+});
 
 // تحميل البيانات من ملف JSON
 function loadData() {
