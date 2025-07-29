@@ -1571,8 +1571,18 @@ const perfumeDetails = {
         gender: "كلا الجنسين",
         concentration: "Eau de Parfum",
         notes: "القلب: مسك الروم، الزهور البيضاء | القاعدة: الروائح العشبية، التابلي المنعش"
-    }
+    },
+    "ombre-nomade": {
+        features: "عطر شرقي خشبي فاخر من لويس فيتون، يجمع بين روائح العود الفاخر، التوت الأسود، والورد. يتميز بعمق وجاذبية مع ثبات قوي يصل إلى 12 ساعة. مناسب للاستخدام المسائي والمناسبات الخاصة.",
+        country: "فرنسا",
+        season: "الشتاء، الخريف",
+        gender: "رجالي",
+        concentration: "Eau de Parfum",
+        notes: "القلب: التوت الأسود، الورد | القاعدة: العود، العنبر، الفانيليا"
+    },
+
 };
+
 
 // عناصر نافذة التفاصيل
 const detailsOverlay = document.querySelector('.perfume-details-overlay');

@@ -227,6 +227,17 @@
             "5ml": 57000,
             "10ml": 110000
           }
+        },
+        {
+          "id": "ombre-nomade",
+          "nameAr": "اومبري نوماد",
+          "nameEn": "Ombre Nomade",
+          "image": "images/products/ombre-nomade.png",
+          "prices": {
+            "3ml": 22000,
+            "5ml": 35000,
+            "10ml": 65000
+          }
         }
       ]
     },
@@ -1334,9 +1345,22 @@
             "5ml": 55000,
             "10ml": 110000
           }
+        },
+        {
+          "id": "tilia",
+          "nameAr": "تيلا",
+          "nameEn": "Tilia",
+          "image": "images/products/tilia.png",
+          "prices": {
+            "3ml": 15000,
+            "5ml": 21000,
+            "10ml": 40000
+          }
         }
       ]
     },
+      
+    
     {
       "id": "mixed-perfumes",
       "nameAr": "العطور المنوعة",
