@@ -558,9 +558,21 @@
             "5ml": 22000,
             "10ml": 40000
           }
+        },
+        {
+          "id": "aqua-di-gio-parfum",
+          "nameAr": "اكوا دي جيو بارفيوم",
+          "nameEn": "Acqua Di Gio Parfum",
+          "image": "images/products/aqua-di-gio-parfum.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
         }
       ]
     },
+      
+    
 
     {
       "id": "parfums-de-marly",
@@ -960,9 +972,32 @@
             "5ml": 17000,
             "10ml": 30000
           }
+        },
+        {
+          "id": "idole",
+          "nameAr": "ايدول",
+          "nameEn": "Idôle",
+          "image": "images/products/idole.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "idole-power",
+          "nameAr": "ايدول باور",
+          "nameEn": "Idôle Power",
+          "image": "images/products/idole-power.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 14000,
+            "10ml": 25000
+          }
         }
       ]
     },
+      
+    
     {
       "id": "burberry",
       "nameAr": "بربري لندن",
@@ -1356,11 +1391,45 @@
             "5ml": 21000,
             "10ml": 40000
           }
+        },
+        {
+          "id": "idole",
+          "nameAr": "ايدول",
+          "nameEn": "Idôle",
+          "image": "images/products/idole.png",
+          "prices": {
+            "5ml": 12000,
+            "10ml": 20000
+          }
+        },
+        {
+          "id": "idole-power",
+          "nameAr": "ايدول باور",
+          "nameEn": "Idôle Power",
+          "image": "images/products/idole-power.png",
+          "prices": {
+            "3ml": 9000,
+            "5ml": 14000,
+            "10ml": 25000
+          }
+        },
+        {
+          "id": "very-good-girl-elixir",
+          "nameAr": "فيري غود غيرل ألكسير",
+          "nameEn": "Very Good Girl ELIXIR",
+          "image": "images/products/very-good-girl-elixir.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 14000,
+            "10ml": 27000
+          }
         }
       ]
     },
       
     
+      
+
     {
       "id": "mixed-perfumes",
       "nameAr": "العطور المنوعة",
@@ -1715,9 +1784,40 @@
           }
         }
       ]
+    },
+    {
+      "id": "carolina-herrera",
+      "nameAr": "كارولينا هيريرا",
+      "nameEn": "Carolina Herrera",
+      "logo": "images/brands/carolina-herrera.png",
+      "perfumes": [
+        {
+          "id": "very-good-girl-elixir",
+          "nameAr": "فيري غود غيرل ألكسير",
+          "nameEn": "Very Good Girl ELIXIR",
+          "image": "images/products/very-good-girl-elixir.png",
+          "prices": {
+            "3ml": 10000,
+            "5ml": 14000,
+            "10ml": 27000
+          }
+        },
+        {
+          "id": "212-sexy",
+          "nameAr": "٢١٢ سيكسي",
+          "nameEn": "212 Sexy",
+          "image": "images/products/212-sexy.png",
+          "prices": {
+            "5ml": 10000,
+            "10ml": 18000
+          }
+        }
+      ]
     }
   ]
-} 
+}  
+  
+
   
   
 
